@@ -1,0 +1,18 @@
+Build system :
+    Implement install and uninstall targets
+    Implement check target
+    Implement dist (and distcheck) target ?
+    Generate the OCaml documentation
+    Rewrite the META file
+    Add the CFLAGS Makefile paramater
+
+Source :
+    - Document the API
+    - Clean the C wrapper
+    - Modify the semantic of Inotify.read
+    to make it closer of the Unix.read one
+
+Tests :
+    Add unit tests
+
+Add licence banners
