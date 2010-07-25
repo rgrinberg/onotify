@@ -1,7 +1,6 @@
-OCAMLMKLIB	= ocamlmklib
-OCAMLBUILD	= ocamlbuild
-OCAMLBUILDFLAGS	= -build-dir $(BUILDDIR)
-CONFIG		= GNUmakefile.config
+MKDIR_P = mkdir -p
+RM_F	= rm -f
+CONFIG  = GNUmakefile.config
 
 include $(CONFIG)
 
@@ -13,12 +12,12 @@ build: $(BUILDDIR)/src/stubs/libinotify_stubs.a
 
 .PHONY: clean
 clean:
-	@rm -f $(CONFIG)
+	@$(RM_F) $(CONFIG)
 	@$(OCAMLBUILD) $(OCAMLBUILDFLAGS) -clean
 
 .PHONY: install
 install: build
-	@mkdir -p $(LIBDIR)
+	@$(MKDIR_P) $(LIBDIR)
 	$(OCAMLFIND) install $(OCAMLFINDFLAGS) inotify META $(LIBFILES)
 
 

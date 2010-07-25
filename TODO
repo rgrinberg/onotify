@@ -5,10 +5,10 @@ configure :
 Build system :
     debug subpackage
     Implement dist target
+    Documentation support
     Implement check target
     Implement uninstall target ?
     Implement distcheck target ?
-    Documentation support
 
 Source :
     - Document the API

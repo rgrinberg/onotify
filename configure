@@ -1,0 +1,149 @@
+#!/bin/sh
+
+prefix=/usr/local
+verbose=false
+ocamlfind_in_installdir=false
+ocamlfind_path=
+ocamldist_path=
+builddir=_build
+configfile=GNUmakefile.config
+
+msg()		{ if $verbose; then echo "$1"; fi		    ;}
+checking()	{ if $verbose; then echo -n "Checking $1 ... "; fi  ;}
+
+echoerr()	{ echo "$1" >&2					    ;}
+error()		{ echoerr "Error: $1"				    ;}
+fatal()		{ error "$1" && exit 1				    ;}
+
+find_program()	{ which "$1" 2>/dev/null			    ;}
+config()	{ echo "$1" >> $configfile			    ;}
+
+parse_cli() {
+    while [ $# -gt 0 ] ; do
+	case $1 in
+	    --verbose)		verbose=true ;;
+	    --prefix=*)		prefix=`echo $1 | cut -d= -f2` ;;
+	    --builddir=*)	builddir=`echo $1 | cut -d= -f2` ;;
+
+	    *)			fatal "Unrecognized option : $1"
+	esac
+
+	shift
+    done
+}
+
+
+check_ocamldist() {
+    for tool in ocamlbuild ocamlmklib ; do
+	checking "for $tool"
+	if [ -f $1/bin/$tool -a -x $1/bin/$tool ] ; then
+	    msg 'yes'
+	else
+	    msg 'no'
+	    return 1
+	fi
+    done
+
+    return 0
+}
+
+find_ocamldist() {
+    msg 'Looking for a valid OCaml distribution'
+    checking 'for ocamlbuild in $PATH'
+    ocamlbuild=`find_program ocamlbuild`
+    if [ $? -eq 0 ] ; then
+	msg $ocamlbuild
+	ocamldist=`dirname $ocamlbuild`/..
+	ocamldist=`readlink -f $ocamldist`
+	msg "Checking whether $ocamldist contains a valid OCaml distribution"
+	if ! check_ocamldist "$ocamldist" ; then
+	    fatal "$ocamlbuild does not contain a valid OCaml distribution"
+	fi
+    else
+	msg 'no'
+	fatal 'No valid OCaml distribution has been found'
+    fi
+    
+}
+
+check_ocamlfind() {
+    [ -f $1/bin/ocamlfind -a -x $1/bin/ocamlfind ]
+}
+
+find_ocamlfind() {
+    msg 'Looking for ocamlfind'
+    checking "for ocamlfind in the installation path ($1)"
+    if check_ocamlfind "$1" ; then
+	msg 'yes'
+	msg "Using $1/bin/ocamlfind hardcoded configuration"
+	ocamlfind_in_installdir=true
+	ocamlfind=$1/bin/ocamlfind
+	return 0
+    else
+	msg 'no'
+    fi
+
+    checking 'for ocamlfind in $PATH'
+    ocamlfind=`find_program ocamlfind`
+    if [ $? -eq 0 ] ; then
+	msg $ocamlfind
+	return 0
+    else
+	msg 'no'
+    fi
+    
+    fatal 'ocamlfind required but not found'
+}
+
+
+
+
+
+##########################################################
+
+parse_cli "$@"
+
+if [ "$OCAMLDIST" ] ; then
+    checking "for an OCaml distribution in $OCAMLDIST"
+    if check_ocamldist "$OCAMLDIST" ; then
+	msg 'yes'
+	ocamldist="$OCAMLDIST"
+    else
+	msg 'no'
+	fatal 'OCAMLDIST does not contain a valid OCaml distribution'
+    fi
+else
+    find_ocamldist
+fi
+
+if [ "$OCAMLFIND" ] ; then
+    checking "for ocamlfind in $OCAMLFIND"
+    if check_ocamlfind "$OCAMLFIND" ; then
+	msg 'yes'
+	ocamlfind="$OCAMLFIND"
+    else
+	msg 'no'
+	fatal 'OCAMLFIND does not contain ocamlfind'
+    fi
+else
+    find_ocamlfind "$prefix"
+fi
+
+rm -f $configfile
+
+config "PREFIX		= $prefix"
+config "OCAMLDIST	= $ocamldist"
+config 'OCAMLBUILD	= $(OCAMLDIST)/bin/ocamlbuild'
+config 'OCAMLMKLIB	= $(OCAMLDIST)/bin/ocamlmklib'
+config "OCAMLFIND	= $ocamlfind"
+config "BUILDDIR	= $builddir"
+config 'LIBDIR		= $(PREFIX)/lib/ocaml/site-lib'
+config "OCAMLBUILDFLAGS	= -build-dir \$(BUILDDIR) $OCAMLBUILDFLAGS"
+config "OCAMLFINDFLAGS	= $OCAMLFINDFLAGS"
+
+if ! $ocamlfind_in_installdir ; then
+    config 'OCAMLFINDFLAGS += -destdir $(LIBDIR)'
+fi
+
+echo $0 "$@" > quickconfig
+chmod ugo+x quickconfig
