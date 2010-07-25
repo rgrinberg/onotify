@@ -1,37 +1,31 @@
 OCAMLMKLIB	= ocamlmklib
 OCAMLBUILD	= ocamlbuild
 OCAMLBUILDFLAGS	= -build-dir $(BUILDDIR)
+CONFIG		= GNUmakefile.config
 
-INC	   	= GNUmakefile.include
+include $(CONFIG)
 
--include $(INC)
-
-PREFIX	  ?= /usr/local
-LIBDIR	  ?= /usr/local/lib/ocaml/site-lib
-BUILDDIR  ?= _build
-
+LIBFILES = $(foreach ext,a cma cmxa, $(BUILDDIR)/src/inotify.$(ext))
 
 .PHONY: build
-build: _build/src/stubs/libinotify_stubs.a
-	@$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/build.otarget
-
-
-.PHONY: conf
-conf:
-	@rm -f $(INC)
-	@echo 'PREFIX   ?= $(PREFIX)'	>> $(INC)
-	@echo 'LIBDIR   ?= $(LIBDIR)' 	>> $(INC)
-	@echo 'BUILDDIR ?= $(BUILDDIR)'	>> $(INC)
+build: $(BUILDDIR)/src/stubs/libinotify_stubs.a
+	@$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/inotify.otarget
 
 .PHONY: clean
-	@rm -f GNUmakefile.include
+clean:
+	@rm -f $(CONFIG)
 	@$(OCAMLBUILD) $(OCAMLBUILDFLAGS) -clean
 
+.PHONY: install
+install: build
+	@mkdir -p $(LIBDIR)
+	$(OCAMLFIND) install $(OCAMLFINDFLAGS) inotify META $(LIBFILES)
 
-_build/src/stubs/libinotify_stubs.a _build/src/stubs/dllinotify_stubs.so: _build/src/stubs/inotify_stubs.o
-	@$(OCAMLMKLIB) -o _build/src/stubs/inotify_stubs $^
 
-_build/src/stubs/inotify_stubs.o: src/stubs/inotify_stubs.c
+$(BUILDDIR)/src/stubs/libinotify_stubs.a $(BUILDDIR)/src/stubs/dllinotify_stubs.so: $(BUILDDIR)/src/stubs/inotify_stubs.o
+	@$(OCAMLMKLIB) -o $(BUILDDIR)/src/stubs/inotify_stubs $^
+
+$(BUILDDIR)/src/stubs/inotify_stubs.o: src/stubs/inotify_stubs.c
 	@$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/stubs/inotify_stubs.o
 
 

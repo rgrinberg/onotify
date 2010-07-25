@@ -1,10 +1,14 @@
+configure :
+    --includes
+    --verbose-build
+
 Build system :
-    Implement install and uninstall targets
+    debug subpackage
+    Implement dist target
     Implement check target
-    Implement dist (and distcheck) target ?
-    Generate the OCaml documentation
-    Rewrite the META file
-    Add the CFLAGS Makefile paramater
+    Implement uninstall target ?
+    Implement distcheck target ?
+    Documentation support
 
 Source :
     - Document the API

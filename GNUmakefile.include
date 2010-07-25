@@ -1,3 +1,0 @@
-PREFIX   ?= /usr/local
-LIBDIR   ?= /usr/local/lib/ocaml/site-lib
-BUILDDIR ?= _build
