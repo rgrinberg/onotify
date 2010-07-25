@@ -34,7 +34,7 @@ parse_cli() {
 
 
 check_ocamldist() {
-    for tool in ocamlbuild ocamlmklib ; do
+    for tool in ocamlc ocamlopt ocamlc.opt ocamlopt.opt ocamlbuild ocamlmklib ; do
 	checking "for $tool"
 	if [ -f $1/bin/$tool -a -x $1/bin/$tool ] ; then
 	    msg 'yes'
@@ -57,7 +57,7 @@ find_ocamldist() {
 	ocamldist=`readlink -f $ocamldist`
 	msg "Checking whether $ocamldist contains a valid OCaml distribution"
 	if ! check_ocamldist "$ocamldist" ; then
-	    fatal "$ocamlbuild does not contain a valid OCaml distribution"
+	    fatal 'No valid OCaml distribution has been found'
 	fi
     else
 	msg 'no'
@@ -104,12 +104,10 @@ find_ocamlfind() {
 parse_cli "$@"
 
 if [ "$OCAMLDIST" ] ; then
-    checking "for an OCaml distribution in $OCAMLDIST"
+    msg "Checking for an OCaml distribution in $OCAMLDIST"
     if check_ocamldist "$OCAMLDIST" ; then
-	msg 'yes'
 	ocamldist="$OCAMLDIST"
     else
-	msg 'no'
 	fatal 'OCAMLDIST does not contain a valid OCaml distribution'
     fi
 else
