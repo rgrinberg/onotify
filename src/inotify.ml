@@ -90,8 +90,10 @@ external struct_size : unit -> int = "stub_inotify_struct_size"
 external to_read : Unix.file_descr -> int = "stub_inotify_ioctl_fionread"
 
 let read fd =
-	let ss = struct_size () in
-	let toread = to_read fd in
+  (* The select call allows Inotify.read() to be blocking. *)
+  let _,_,_  = Unix.select [fd] [] [] (-1.) in
+  let ss     = struct_size () in
+  let toread = to_read fd in
 
 	let ret = ref [] in
 	let buf = String.make toread '\000' in

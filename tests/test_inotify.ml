@@ -22,7 +22,7 @@ let _ =
 	let nb = ref 0 in
 	while true
 	do
-		let _, _, _ = Unix.select [ fd ] [] [] (-1.) in
+		(*let _, _, _ = Unix.select [ fd ] [] [] (-1.) in *)
 		let evs = Inotify.read fd in
 		List.iter (fun ev ->
 			printf "[%d] %s\n%!" !nb (string_of_event ev)) evs;
