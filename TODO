@@ -10,8 +10,6 @@ Build system :
 Source :
     - Document the API
     - Clean the C wrapper
-    - Modify the semantic of Inotify.read
-    to make it closer of the Unix.read one
 
 Tests :
     Add unit tests
