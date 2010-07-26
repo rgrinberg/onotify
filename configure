@@ -1,12 +1,20 @@
 #!/bin/sh
 
+##############################
+pkgname=onotify
+pkgver=0.2
+##############################
+
+
 prefix=/usr/local
 verbose=false
 ocamlfind_in_installdir=false
 ocamlfind_path=
 ocamldist_path=
 builddir=_build
+includedir=
 configfile=GNUmakefile.config
+verbose_build=false
 
 msg()		{ if $verbose; then echo "$1"; fi		    ;}
 checking()	{ if $verbose; then echo -n "Checking $1 ... "; fi  ;}
@@ -24,6 +32,8 @@ parse_cli() {
 	    --verbose)		verbose=true ;;
 	    --prefix=*)		prefix=`echo $1 | cut -d= -f2` ;;
 	    --builddir=*)	builddir=`echo $1 | cut -d= -f2` ;;
+	    --includes=*)	includedir=`echo $1 | cut -d= -f2` ;;
+	    --verbose-build)    verbose_build=true ;;
 
 	    *)			fatal "Unrecognized option : $1"
 	esac
@@ -129,19 +139,40 @@ fi
 
 rm -f $configfile
 
+config "PKGNAME		= $pkgname"
+config "PKGVER		= $pkgver"
 config "PREFIX		= $prefix"
 config "OCAMLDIST	= $ocamldist"
-config 'OCAMLBUILD	= $(OCAMLDIST)/bin/ocamlbuild'
-config 'OCAMLMKLIB	= $(OCAMLDIST)/bin/ocamlmklib'
 config "OCAMLFIND	= $ocamlfind"
 config "BUILDDIR	= $builddir"
-config 'LIBDIR		= $(PREFIX)/lib/ocaml/site-lib'
 config "OCAMLBUILDFLAGS	= -build-dir \$(BUILDDIR) $OCAMLBUILDFLAGS"
 config "OCAMLFINDFLAGS	= $OCAMLFINDFLAGS"
+
+if [ "$includedir" ] ; then
+    config "OCAMLBUILDFLAGS += -Is $includedir"
+fi
 
 if ! $ocamlfind_in_installdir ; then
     config 'OCAMLFINDFLAGS += -destdir $(LIBDIR)'
 fi
+
+if $verbose_build ; then
+    config 'P ='
+else
+    config 'P = @'
+fi
+
+msg
+msg
+
+msg "prefix              : $prefix"
+msg
+msg "OCaml distribution  : $ocamldist"
+msg "ocamlfind           : $ocamlfind"
+msg "build directory     : $builddir"
+msg "include directories : $includedir"
+msg "ocamlbuild flags    : $OCAMLBUILDFLAGS"
+msg "ocamlfind flags     : $OCAMLFINDFLAGS"
 
 echo $0 "$@" > quickconfig
 chmod ugo+x quickconfig

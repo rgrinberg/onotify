@@ -1,10 +1,7 @@
 configure :
-    --includes
-    --verbose-build
 
 Build system :
-    debug subpackage
-    Implement dist target
+    make META version configured by configure's pkgver variable
     Documentation support
     Implement check target
     Implement uninstall target ?
