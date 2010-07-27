@@ -1,11 +1,11 @@
-version		= "1.0"
+version		= "@pkgver@"
 description	= "Inotify binding"
 requires	= "unix"
 archive(byte)	= "inotify.cma"
 archive(native)	= "inotify.cmxa"
 
 package "debug" (
-    version	    = "1.0"
+    version	    = "@pkgver@"
     description	    = "Inotify binding (debug version)"
     requires	    = "unix"
     archive(byte)   = "inotify.d.cma"

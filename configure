@@ -25,6 +25,42 @@ fatal()		{ error "$1" && exit 1				    ;}
 
 find_program()	{ which "$1" 2>/dev/null			    ;}
 config()	{ echo "$1" >> $configfile			    ;}
+config_file()	{ msg "Configuring $1"; sed -re "$2" $1.in > $1	    ;}
+
+check_help_request() {
+    case $# in
+	1)
+	    case $1 in
+		-h|--help) print_usage
+	    esac
+    esac
+}
+
+print_usage() {
+    cat <<EOF
+
+Usage : $0 [options]
+
+Options :
+	--verbose		Make the configure more verbose.
+	--verbose-build		Make the build more verbose
+	--prefix=<path>		Set up the installation directory.
+				(default is /usr/local)
+	--builddir=<path>	Set up the build directory.
+				(default is _build)
+	--includes=<list>	Specify a comma-separated list of additional
+				include directories.
+
+Relevant environment variables :
+    OCAMLDIST	    Force the location of the OCaml distribution
+    OCAMLFIND	    Force the location of ocamlfind
+    OCAMLBUILDFLAGS Additional ocamlbuild flags
+    OCAMLFINDFLAGS  Additional ocamlfind flags
+
+EOF
+
+    exit 0
+}
 
 parse_cli() {
     while [ $# -gt 0 ] ; do
@@ -111,6 +147,8 @@ find_ocamlfind() {
 
 ##########################################################
 
+check_help_request "$@"
+
 parse_cli "$@"
 
 if [ "$OCAMLDIST" ] ; then
@@ -147,6 +185,7 @@ config "OCAMLFIND	= $ocamlfind"
 config "BUILDDIR	= $builddir"
 config "OCAMLBUILDFLAGS	= -build-dir \$(BUILDDIR) $OCAMLBUILDFLAGS"
 config "OCAMLFINDFLAGS	= $OCAMLFINDFLAGS"
+config "CLEANFILES	= $configfile META"
 
 if [ "$includedir" ] ; then
     config "OCAMLBUILDFLAGS += -Is $includedir"
@@ -161,6 +200,8 @@ if $verbose_build ; then
 else
     config 'P = @'
 fi
+
+config_file META "s/@pkgver@/$pkgver/"
 
 msg
 msg

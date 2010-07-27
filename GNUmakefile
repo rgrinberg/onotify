@@ -19,7 +19,7 @@ build: $(BUILDDIR)/src/stubs/libinotify_stubs.a
 
 .PHONY: clean
 clean:
-	$(P)$(RM_F) $(CONFIG)
+	$(P)$(RM_F) $(CLEANFILES)
 	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) -clean
 
 .PHONY: install

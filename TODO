@@ -1,7 +1,4 @@
-configure :
-
 Build system :
-    make META version configured by configure's pkgver variable
     Documentation support
     Implement check target
     Implement uninstall target ?
