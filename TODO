@@ -1,6 +1,7 @@
+
 Build system :
-    Documentation support
     Implement check target
+
     Implement uninstall target ?
     Implement distcheck target ?
 

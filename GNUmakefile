@@ -1,21 +1,29 @@
 MKDIR_P		= mkdir -p
 RM_F		= rm -f
-CONFIG		= GNUmakefile.config
 GIT_ARCHIVE	= git archive
+CP_R		= cp -r
 
+CONFIG		= GNUmakefile.config
 include $(CONFIG)
 
 OCAMLBUILD	 = $(OCAMLDIST)/bin/ocamlbuild
 OCAMLMKLIB	 = $(OCAMLDIST)/bin/ocamlmklib
-LIBDIR		 = $(PREFIX)/lib/ocaml/site-lib
 DISTNAME 	 = $(PKGNAME)-$(PKGVER)
 DISTREV 	?= HEAD
 LIBFILES	 = $(foreach ext,a cma cmxa d.cma, $(BUILDDIR)/src/inotify.$(ext))
 BUILDSTUBS	 = $(BUILDDIR)/src/stubs
 
+
+
 .PHONY: build
-build: $(BUILDDIR)/src/stubs/libinotify_stubs.a
+build: lib doc
+
+.PHONY: lib doc
+lib: $(BUILDDIR)/src/stubs/libinotify_stubs.a
 	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/inotify.otarget
+
+doc:
+	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/inotify.docdir/index.html
 
 .PHONY: clean
 clean:
@@ -25,8 +33,11 @@ clean:
 .PHONY: install
 install: build
 	$(P)$(MKDIR_P) $(LIBDIR)
+	$(P)$(MKDIR_P) $(DOCDIR)/html
 	$(P)$(OCAMLFIND) install $(OCAMLFINDFLAGS) inotify META $(LIBFILES)
-
+	$(P)$(CP_R) LICENSE $(DOCDIR)/
+	$(P)$(CP_R) $(BUILDDIR)/src/inotify.docdir/* $(DOCDIR)/html/
+	
 .PHONY: dist
 dist:
 	$(P)$(GIT_ARCHIVE) --prefix=$(DISTNAME)/ $(DISTREV) . | bzip2 > $(DISTNAME).tar.bz2

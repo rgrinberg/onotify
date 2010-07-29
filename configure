@@ -8,13 +8,15 @@ pkgver=0.2
 
 prefix=/usr/local
 verbose=false
+verbose_build=false
 ocamlfind_in_installdir=false
 ocamlfind_path=
 ocamldist_path=
 builddir=_build
 includedir=
-configfile=GNUmakefile.config
-verbose_build=false
+docdir=
+libdir=
+buildconf=GNUmakefile.config
 
 msg()		{ if $verbose; then echo "$1"; fi		    ;}
 checking()	{ if $verbose; then echo -n "Checking $1 ... "; fi  ;}
@@ -24,7 +26,7 @@ error()		{ echoerr "Error: $1"				    ;}
 fatal()		{ error "$1" && exit 1				    ;}
 
 find_program()	{ which "$1" 2>/dev/null			    ;}
-config()	{ echo "$1" >> $configfile			    ;}
+config()	{ echo "$1" >> $buildconf			    ;}
 config_file()	{ msg "Configuring $1"; sed -re "$2" $1.in > $1	    ;}
 
 check_help_request() {
@@ -48,6 +50,10 @@ Options :
 				(default is /usr/local)
 	--builddir=<path>	Set up the build directory.
 				(default is _build)
+	--docdir=<path>		Specify where documentation is installed.
+				(default is \$prefix/share/doc/onotify)
+	--libdir=<path>		Specify where libraries are installed.
+				(default is \$prefix/lib/ocaml/site-lib/$pkgname)
 	--includes=<list>	Specify a comma-separated list of additional
 				include directories.
 
@@ -68,6 +74,8 @@ parse_cli() {
 	    --verbose)		verbose=true ;;
 	    --prefix=*)		prefix=`echo $1 | cut -d= -f2` ;;
 	    --builddir=*)	builddir=`echo $1 | cut -d= -f2` ;;
+	    --docdir=*)		docdir=`echo $1 | cut -d= -f2` ;;
+	    --libdir=*)		libdir=`echo $1 | cut -d= -f2` ;;
 	    --includes=*)	includedir=`echo $1 | cut -d= -f2` ;;
 	    --verbose-build)    verbose_build=true ;;
 
@@ -177,9 +185,14 @@ fi
 
 rm -f $configfile
 
+[ "$libdir" ] || libdir='$(PREFIX)/lib/ocaml/site-lib/$(PKGNAME)'
+[ "$docdir" ] || docdir='$(PREFIX)/share/doc/$(PKGNAME)'
+
 config "PKGNAME		= $pkgname"
 config "PKGVER		= $pkgver"
 config "PREFIX		= $prefix"
+config "LIBDIR		= $libdir"
+config "DOCDIR		= $docdir"
 config "OCAMLDIST	= $ocamldist"
 config "OCAMLFIND	= $ocamlfind"
 config "BUILDDIR	= $builddir"
@@ -206,14 +219,16 @@ config_file META "s/@pkgver@/$pkgver/"
 msg
 msg
 
-msg "prefix              : $prefix"
+msg "prefix                     : $prefix"
+msg "library install dir        : $libdir"
+msg "documentation install dir  : $docdir"
 msg
-msg "OCaml distribution  : $ocamldist"
-msg "ocamlfind           : $ocamlfind"
-msg "build directory     : $builddir"
-msg "include directories : $includedir"
-msg "ocamlbuild flags    : $OCAMLBUILDFLAGS"
-msg "ocamlfind flags     : $OCAMLFINDFLAGS"
+msg "OCaml distribution         : $ocamldist"
+msg "ocamlfind                  : $ocamlfind"
+msg "build directory            : $builddir"
+msg "include directories        : $includedir"
+msg "ocamlbuild flags           : $OCAMLBUILDFLAGS"
+msg "ocamlfind flags            : $OCAMLFINDFLAGS"
 
 echo $0 "$@" > quickconfig
 chmod ugo+x quickconfig

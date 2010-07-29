@@ -1,4 +1,5 @@
 (*
+ * Copyright (C) 2010	   Ludovic Stordeur <ludovic@okazoo.eu>
  * Copyright (C) 2006-2008 Vincent Hanquez <vincent@snarc.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -11,8 +12,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  *
- * Inotify OCaml binding
+ * Public interface of the Linux Inotify binding.
  *)
+
+(** @author Vincent Hanquez
+    @author Ludovic Stordeur *)
+
+
 exception Error of string * int
 
 type select_event =
@@ -57,10 +63,10 @@ type type_event =
 type wd
 type event = wd * type_event list * int32 * string option
 
-val int_of_wd : wd -> int
-val string_of_event : type_event -> string
+val int_of_wd		: wd -> int
+val string_of_event	: type_event -> string
 
-val init : unit -> Unix.file_descr
-val add_watch : Unix.file_descr -> string -> select_event list -> wd
-val rm_watch : Unix.file_descr -> wd -> unit
-val read : Unix.file_descr -> event list
+val init		: unit -> Unix.file_descr
+val add_watch		: Unix.file_descr -> string -> select_event list -> wd
+val rm_watch		: Unix.file_descr -> wd -> unit
+val read		: Unix.file_descr -> event list
