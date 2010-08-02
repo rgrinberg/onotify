@@ -6,7 +6,6 @@ Build system :
 
 Source :
     - Document the API
-    - Clean the C wrapper
 
 Tests :
     Add unit tests
