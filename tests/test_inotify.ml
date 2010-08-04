@@ -24,12 +24,10 @@ let _ =
 	sprintf "wd[%d] mask[%s] cookie[%ld] %s" wd mask cookie name
 	
     in
-    let nb = ref 0 in
     while true
     do
 	let evs = Inotify.read fd in
-	List.iter (fun ev -> printf "[%d] %s\n%!" !nb (string_of_ev ev)) evs;
-	incr nb
+	List.iter (fun ev -> printf "%s\n%!" (string_of_ev ev)) evs
     done;
 	    
     Unix.close fd
