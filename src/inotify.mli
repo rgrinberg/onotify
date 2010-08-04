@@ -21,8 +21,8 @@
 
 exception Error of string * int
 
-(** Events to monitor *)
-type ev_req =
+(** Bit Events to monitor *)
+type bit_req =
     | R_Access		(** Read access to the file *)
     | R_Attrib		(** Metadata modification *)
     | R_Close_write	(** Write-opened file closed *)
@@ -44,8 +44,8 @@ type ev_req =
     | R_Oneshot		(** Watch the file until the first event *)
     | R_Onlydir		(** Watch the file only if it is a directory *)
 
-(** Events to receive *)
-type ev =
+(** Bit events to receive *)
+type bit =
     | Access		(** Read access to the file *)
     | Attrib		(** Metadata modification *)
     | Close_write	(** Write-opened file closed *)
@@ -67,22 +67,21 @@ type ev =
 
 
 (** A watch descriptor *)
-type wd
+type wd = int 
+
 
 (** Define an event *)
-type event = { wd     : wd;	      (** The associated watch descriptor *)
-	       evs    : ev list;      (** List of events *)
-	       cookie : int32;	      (** Unique identifier used to bind
-					  events together. Currently only
-					  used to bind Move_from and Move_to *)
-	       name   : string option (** Optional name associated to the event *) }
+type ev = { wd     : wd;	   (** The associated watch descriptor *)
+	    mask   : bit list;     (** List of received events *)
+	    cookie : int32;	   (** Unique identifier used to bind
+				       events together. Currently only
+				       used to bind Move_from and Move_to *)
+	    name   : string option (** Optional name associated to the event *) }
     
 
-(* val int_of_wd : wd -> int *)
-
-val string_of_ev : ev -> string
+val string_of_bit : bit -> string
 
 val init      : unit -> Unix.file_descr
-val add_watch : Unix.file_descr -> string -> ev_req list -> wd
+val add_watch : Unix.file_descr -> string -> bit_req list -> wd
 val rm_watch  : Unix.file_descr -> wd -> unit
-val read      : Unix.file_descr -> event list
+val read      : Unix.file_descr -> ev list

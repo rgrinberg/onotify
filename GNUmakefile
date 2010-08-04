@@ -31,7 +31,9 @@ install: build
 dist:
 	$(P)$(GIT_ARCHIVE) --prefix=$(DISTNAME)/ $(DISTREV) . | bzip2 > $(DISTNAME).tar.bz2
 
-
+.PHONY: test
+test:
+	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) -Is src -libs unix -lflag src/stubs/libinotify_stubs.a tests/test_inotify.native
 
 
 $(BUILDSTUBS)/libinotify_stubs.a $(BUILDSTUBS)/dllinotify_stubs.so: $(BUILDSTUBS)/inotify_stubs.o
