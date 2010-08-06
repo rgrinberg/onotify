@@ -1,0 +1,2 @@
+<src>: include
+<tests/*.native>: use_stubs, use_unix

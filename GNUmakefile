@@ -13,8 +13,12 @@ DISTREV 	?= HEAD
 LIBFILES	 = $(foreach ext,a cma cmxa d.cma, $(BUILDDIR)/src/inotify.$(ext))
 BUILDSTUBS	 = $(BUILDDIR)/src/stubs
 
+.PHONY: stubs
+stubs:
+	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/stubs/inotify_stubs.otarget
+
 .PHONY: build
-build: $(BUILDDIR)/src/stubs/libinotify_stubs.a
+build: stubs
 	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/inotify.otarget
 
 .PHONY: clean
@@ -32,14 +36,6 @@ dist:
 	$(P)$(GIT_ARCHIVE) --prefix=$(DISTNAME)/ $(DISTREV) . | bzip2 > $(DISTNAME).tar.bz2
 
 .PHONY: test
-test:
-	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) -Is src -libs unix -lflag src/stubs/libinotify_stubs.a tests/test_inotify.native
-
-
-$(BUILDSTUBS)/libinotify_stubs.a $(BUILDSTUBS)/dllinotify_stubs.so: $(BUILDSTUBS)/inotify_stubs.o
-	$(P)$(OCAMLMKLIB) -o $(BUILDSTUBS)/inotify_stubs $^
-
-$(BUILDSTUBS)/inotify_stubs.o: src/stubs/inotify_stubs.c
-	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/stubs/inotify_stubs.o
-
+test: stubs
+	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) tests/test_inotify.native
 
