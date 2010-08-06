@@ -14,16 +14,25 @@ LIBFILES	 = $(foreach ext,a mli cmi cma cmxa d.cma, $(BUILDDIR)/src/inotify.$(ex
 BUILDSTUBS	 = $(BUILDDIR)/src/stubs
 
 
-
 .PHONY: build
-build: lib doc
+build: lib stubs doc
 
-.PHONY: lib doc
-lib: $(BUILDDIR)/src/stubs/libinotify_stubs.a
+.PHONY: lib
+lib:
 	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/inotify.otarget
 
+.PHONY: stubs
+stubs:
+	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/stubs/inotify_stubs.otarget
+
+.PHONY: doc
 doc:
 	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/inotify.docdir/index.html
+
+
+.PHONY: test
+test: stubs
+	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) tests/test_inotify.native
 
 .PHONY: clean distclean
 clean:
@@ -31,6 +40,7 @@ clean:
 
 distclean: clean
 	$(P)$(RM_F) $(CLEANFILES)
+
 
 .PHONY: install
 install: build
@@ -43,14 +53,3 @@ install: build
 .PHONY: dist
 dist:
 	$(P)$(GIT_ARCHIVE) --prefix=$(DISTNAME)/ $(DISTREV) . | bzip2 > $(DISTNAME).tar.bz2
-
-
-
-
-$(BUILDSTUBS)/libinotify_stubs.a $(BUILDSTUBS)/dllinotify_stubs.so: $(BUILDSTUBS)/inotify_stubs.o
-	$(P)$(OCAMLMKLIB) -o $(BUILDSTUBS)/inotify_stubs $^
-
-$(BUILDSTUBS)/inotify_stubs.o: src/stubs/inotify_stubs.c
-	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/stubs/inotify_stubs.o
-
-
