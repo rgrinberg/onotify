@@ -10,8 +10,7 @@ OCAMLBUILD	 = $(OCAMLDIST)/bin/ocamlbuild
 OCAMLMKLIB	 = $(OCAMLDIST)/bin/ocamlmklib
 DISTNAME 	 = $(PKGNAME)-$(PKGVER)
 DISTREV 	?= HEAD
-LIBFILES	 = $(foreach ext,a mli cmi cma cmxa d.cma, $(BUILDDIR)/src/inotify.$(ext))
-BUILDSTUBS	 = $(BUILDDIR)/src/stubs
+LIBFILES	 = $(foreach ext,mli cmi a cma cmxa d.cma, $(BUILDDIR)/src/inotify.$(ext))
 
 
 .PHONY: build
