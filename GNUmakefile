@@ -11,7 +11,6 @@ LIBDIR		 = $(PREFIX)/lib/ocaml/site-lib
 DISTNAME 	 = $(PKGNAME)-$(PKGVER)
 DISTREV 	?= HEAD
 LIBFILES	 = $(foreach ext,a cma cmxa d.cma, $(BUILDDIR)/src/inotify.$(ext))
-BUILDSTUBS	 = $(BUILDDIR)/src/stubs
 
 .PHONY: stubs
 stubs:
