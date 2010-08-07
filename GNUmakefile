@@ -10,7 +10,7 @@ OCAMLBUILD	 = $(OCAMLDIST)/bin/ocamlbuild
 OCAMLMKLIB	 = $(OCAMLDIST)/bin/ocamlmklib
 DISTNAME 	 = $(PKGNAME)-$(PKGVER)
 DISTREV 	?= HEAD
-LIBFILES	 = $(foreach ext,a cma cmxa d.cma, $(BUILDDIR)/src/inotify.$(ext))
+LIBFILES	 = $(foreach ext,a mli cmi cma cmxa d.cma, $(BUILDDIR)/src/inotify.$(ext))
 BUILDSTUBS	 = $(BUILDDIR)/src/stubs
 
 
@@ -25,10 +25,12 @@ lib: $(BUILDDIR)/src/stubs/libinotify_stubs.a
 doc:
 	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/inotify.docdir/index.html
 
-.PHONY: clean
+.PHONY: clean distclean
 clean:
-	$(P)$(RM_F) $(CLEANFILES)
 	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) -clean
+
+distclean: clean
+	$(P)$(RM_F) $(CLEANFILES)
 
 .PHONY: install
 install: build

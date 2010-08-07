@@ -185,7 +185,7 @@ fi
 
 rm -f $configfile
 
-[ "$libdir" ] || libdir='$(PREFIX)/lib/ocaml/site-lib/$(PKGNAME)'
+[ "$libdir" ] || libdir='$(PREFIX)/lib/ocaml/site-lib'
 [ "$docdir" ] || docdir='$(PREFIX)/share/doc/$(PKGNAME)'
 
 config "PKGNAME		= $pkgname"
