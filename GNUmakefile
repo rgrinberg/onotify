@@ -10,7 +10,7 @@ OCAMLBUILD	 = $(OCAMLDIST)/bin/ocamlbuild
 OCAMLMKLIB	 = $(OCAMLDIST)/bin/ocamlmklib
 DISTNAME 	 = $(PKGNAME)-$(PKGVER)
 DISTREV 	?= HEAD
-LIBFILES	 = $(foreach ext,mli cmi a cma cmxa d.cma, $(BUILDDIR)/src/inotify.$(ext))
+LIBFILES	 = $(foreach ext,mli cmi a cma cmxa, $(BUILDDIR)/src/inotify.$(ext))
 
 
 .PHONY: build
@@ -31,7 +31,7 @@ doc:
 
 .PHONY: test
 test: stubs
-	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) tests/test_inotify.native
+	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) tests/test_inotify.byte tests/test_inotify.native
 
 .PHONY: clean distclean
 clean:

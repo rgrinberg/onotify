@@ -4,9 +4,3 @@ requires	= "unix"
 archive(byte)	= "inotify.cma"
 archive(native)	= "inotify.cmxa"
 
-package "debug" (
-    version	    = "@pkgver@"
-    description	    = "Inotify binding (debug version)"
-    requires	    = "unix"
-    archive(byte)   = "inotify.d.cma"
-)
