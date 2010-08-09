@@ -80,9 +80,19 @@ type ev = { wd     : wd;	   (** The associated watch descriptor *)
     
 
 val string_of_bit : bit -> string
+    (** [string_of_bit bit] returns the string reprensation of [bit]. *)
 
 val init      : unit -> Unix.file_descr
-val add_watch : Unix.file_descr -> string -> bit_req list -> wd
-val rm_watch  : Unix.file_descr -> wd -> unit
-val read      : Unix.file_descr -> ev list
+    (** [init] creates a new Inotify context and return a descriptor on this context. *) 
 
+val add_watch : Unix.file_descr -> string -> bit_req list -> wd
+    (** [add_watch fd inode events] adds a new watch point, monitoring for [events] on [inode],
+	to the descriptor [fd].
+
+	@return A watch descriptor *)
+	
+val rm_watch  : Unix.file_descr -> wd -> unit
+    (** [rm_watch fd wd] removes [wd] from the set of watch points associated to [fd]. *)
+
+val read      : Unix.file_descr -> ev list
+    (** [read fd] reads for events associated to the descriptor [fd]. *)
