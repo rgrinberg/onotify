@@ -6,7 +6,8 @@ Build system :
     Implement distcheck target ?
 
 Source :
-    - Document the API
+    Inspect and potentially clean error handling
+    Document error handling
 
 Tests :
     Add unit tests
