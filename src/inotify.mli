@@ -11,8 +11,6 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *
- * Inotify OCaml binding public interface
  *)
 
 (** Inotify OCaml binding public interface
