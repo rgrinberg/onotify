@@ -29,19 +29,19 @@
 
 #include <features.h>
 
-#if __GLIBC__ >= 2 && __GLIBC_MINOR__ >= 4
-#define GLIBC_SUPPORT_INOTIFY 1
-#else
-#define GLIBC_SUPPORT_INOTIFY 0
-#endif
+/* #if __GLIBC__ >= 2 && __GLIBC_MINOR__ >= 4 */
+/* #define GLIBC_SUPPORT_INOTIFY 1 */
+/* #else */
+/* #define GLIBC_SUPPORT_INOTIFY 0 */
+/* #endif */
 
-#if GLIBC_SUPPORT_INOTIFY
+/* #if GLIBC_SUPPORT_INOTIFY */
 #include <sys/inotify.h>
-#else
-#include "inotify_compat.h"
-#endif
+/* #else */
+/* #include "inotify_compat.h" */
+/* #endif */
 
-static int inotify_ev_req_table[] = {
+static int inotify_bit_req_table[] = {
     IN_ACCESS, IN_ATTRIB, IN_CLOSE_WRITE, IN_CLOSE_NOWRITE,
     IN_CREATE, IN_DELETE, IN_DELETE_SELF, IN_MODIFY,
     IN_MOVE_SELF, IN_MOVED_FROM, IN_MOVED_TO, IN_OPEN,
@@ -51,7 +51,7 @@ static int inotify_ev_req_table[] = {
     IN_DONT_FOLLOW, IN_MASK_ADD, IN_ONESHOT, IN_ONLYDIR,
 };
 
-static int inotify_ev_table[] = {
+static int inotify_bit_table[] = {
     IN_ACCESS, IN_ATTRIB, IN_CLOSE_WRITE, IN_CLOSE_NOWRITE,
     IN_CREATE, IN_DELETE, IN_DELETE_SELF, IN_MODIFY,
     IN_MOVE_SELF, IN_MOVED_FROM, IN_MOVED_TO, IN_OPEN,
@@ -63,11 +63,12 @@ static int inotify_ev_table[] = {
 
 static void raise_inotify_error(char const *msg)
 {
-    static value *inotify_err = NULL;
     value args[2];
 
+    static value *inotify_err = NULL;
     if (!inotify_err)
 	inotify_err = caml_named_value("inotify.error");
+
     args[0] = caml_copy_string(msg);
     args[1] = Val_int(errno);
 
@@ -100,7 +101,7 @@ CAMLprim value stub_inotify_add_watch(value fd, value path, value mask)
     CAMLparam3(fd, path, mask);
     int cv_mask, wd;
 
-    cv_mask = caml_convert_flag_list(mask, inotify_ev_req_table);
+    cv_mask = caml_convert_flag_list(mask, inotify_bit_req_table);
     wd = inotify_add_watch(Int_val(fd), String_val(path), cv_mask);
     if (wd < 0)
 	raise_inotify_error("add_watch");
@@ -136,8 +137,8 @@ CAMLprim value stub_inotify_convert(value buf)
 
     memcpy(&ev, String_val(buf), sizeof(struct inotify_event));
 
-    for (i = 0; inotify_ev_table[i]; i++) {
-	if (!(ev.mask & inotify_ev_table[i]))
+    for (i = 0; inotify_bit_table[i]; i++) {
+	if (!(ev.mask & inotify_bit_table[i]))
 	    continue;
 	tmpl = caml_alloc_small(2, Tag_cons);
 	/* Use Store_field here */
