@@ -79,8 +79,6 @@ let string_of_bit = function
     | Unmount		-> "UNMOUNT"
 
 
-(* let int_of_wd wd = wd *)
-
 type wd = int
 
 type ev = { wd     : wd;
@@ -130,4 +128,4 @@ let read fd =
     List.rev !ret
 
 
-let _ = Callback.register_exception "inotify.error" (Error ("register_callback", 0))
+let _ = Callback.register_exception "inotify.error" (Error ("", 0))
