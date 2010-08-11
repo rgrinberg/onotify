@@ -2,12 +2,8 @@
 Build system :
     Implement check target
 
-    Implement uninstall target ?
-    Implement distcheck target ?
-
 Source :
-    Inspect and potentially clean error handling
-    Document error handling
+    Use Unix.Unix_error for error handling
 
 Tests :
     Add unit tests
