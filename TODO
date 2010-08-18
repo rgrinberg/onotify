@@ -1,11 +1,15 @@
-
 Build system :
     Implement check target
-
-Source :
-    Use Unix.Unix_error for error handling
 
 Tests :
     Add unit tests
 
+Sources :
+    Directly expose the internal functions in the interface
+    Remove commented codes in the stub
+
+Doc :
+    README
+    INSTALL
+    
 Add licence banners
