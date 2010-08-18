@@ -1,5 +1,6 @@
 /*
- *	Copyright (C) 2006-2008 Vincent Hanquez <vincent@snarc.org>
+ * Copyright (C) 2010	   Ludovic Stordeur <ludovic@okazoo.eu>
+ * Copyright (C) 2006-2008 Vincent Hanquez  <vincent@snarc.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -19,6 +20,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
+
 #include <caml/mlvalues.h>
 #include <caml/memory.h>
 #include <caml/alloc.h>
@@ -26,6 +28,7 @@
 #include <caml/fail.h>
 #include <caml/signals.h>
 #include <caml/callback.h>
+#include <caml/unixsupport.h>
 
 #include <features.h>
 
@@ -40,6 +43,7 @@
 /* #else */
 /* #include "inotify_compat.h" */
 /* #endif */
+
 
 static int inotify_bit_req_table[] = {
     IN_ACCESS, IN_ATTRIB, IN_CLOSE_WRITE, IN_CLOSE_NOWRITE,
@@ -61,18 +65,9 @@ static int inotify_bit_table[] = {
 };
 
 
-static void raise_inotify_error(char const *msg)
+static void inotify_error(char *cmdarg)
 {
-    value args[2];
-
-    static value *inotify_err = NULL;
-    if (!inotify_err)
-	inotify_err = caml_named_value("inotify.error");
-
-    args[0] = caml_copy_string(msg);
-    args[1] = Val_int(errno);
-
-    caml_raise_with_args(*inotify_err, 2, args);
+    uerror("inotify", copy_string(cmdarg));
 }
 
 CAMLprim value stub_inotify_init(value unit)
@@ -91,7 +86,7 @@ CAMLprim value stub_inotify_ioctl_fionread(value fd)
 
     rc = ioctl(Int_val(fd), FIONREAD, &bytes);
     if (rc == -1)
-	raise_inotify_error("ioctl fionread");
+	inotify_error("ioctl fionread");
 
     CAMLreturn(Val_int(bytes));
 }
@@ -104,7 +99,8 @@ CAMLprim value stub_inotify_add_watch(value fd, value path, value mask)
     cv_mask = caml_convert_flag_list(mask, inotify_bit_req_table);
     wd = inotify_add_watch(Int_val(fd), String_val(path), cv_mask);
     if (wd < 0)
-	raise_inotify_error("add_watch");
+	inotify_error("add_watch");
+
     CAMLreturn(Val_int(wd));
 }
 
@@ -115,7 +111,7 @@ CAMLprim value stub_inotify_rm_watch(value fd, value wd)
 
     ret = inotify_rm_watch(Int_val(fd), Int_val(wd));
     if (ret == -1)
-	raise_inotify_error("rm_watch");
+	inotify_error("rm_watch");
     CAMLreturn(Val_unit);
 }
 
@@ -133,17 +129,16 @@ CAMLprim value stub_inotify_convert(value buf)
     int i;
 
     l = Val_emptylist;
-    tmpl = Val_emptylist; /* Usefull ? */
-
+    
     memcpy(&ev, String_val(buf), sizeof(struct inotify_event));
 
     for (i = 0; inotify_bit_table[i]; i++) {
 	if (!(ev.mask & inotify_bit_table[i]))
 	    continue;
-	tmpl = caml_alloc_small(2, Tag_cons);
-	/* Use Store_field here */
-	Field(tmpl, 0) = Val_int(i);
-	Field(tmpl, 1) = l;
+
+	tmpl = caml_alloc_small(2, Tag_cons);	
+	Store_field(tmpl, 0, Val_int(i));
+	Store_field(tmpl, 1, l);
 	l = tmpl;
     }
 

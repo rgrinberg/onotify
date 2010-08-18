@@ -15,7 +15,6 @@
  * Inotify OCaml binding implementation
  *)
 
-exception Error of string * int
 
 type bit_req =
     | R_Access
@@ -126,6 +125,3 @@ let read fd =
     done;
 
     List.rev !ret
-
-
-let _ = Callback.register_exception "inotify.error" (Error ("", 0))

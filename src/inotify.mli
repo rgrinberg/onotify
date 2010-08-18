@@ -19,8 +19,6 @@
     @author Vincent Hanquez *)
 
 
-exception Error of string * int
-
 (** Bit Events to monitor *)
 type bit_req =
     | R_Access		(** Read access to the file *)
