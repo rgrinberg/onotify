@@ -4,10 +4,6 @@ Build system :
 Tests :
     Add unit tests
 
-Sources :
-    Directly expose the internal functions in the interface
-    Remove commented codes in the stub
-
 Doc :
     README
     INSTALL

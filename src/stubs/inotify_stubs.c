@@ -32,17 +32,8 @@
 
 #include <features.h>
 
-/* #if __GLIBC__ >= 2 && __GLIBC_MINOR__ >= 4 */
-/* #define GLIBC_SUPPORT_INOTIFY 1 */
-/* #else */
-/* #define GLIBC_SUPPORT_INOTIFY 0 */
-/* #endif */
-
-/* #if GLIBC_SUPPORT_INOTIFY */
+/* Inotify interface is provided by glibc starting from glibc 2.4 */
 #include <sys/inotify.h>
-/* #else */
-/* #include "inotify_compat.h" */
-/* #endif */
 
 
 static int inotify_bit_req_table[] = {
