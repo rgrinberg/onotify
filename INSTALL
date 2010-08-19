@@ -1,0 +1,68 @@
+Overview of the build system
+****************************
+The overall build system is composed of a configuration shell script and a GNU
+Makefile layered on top of the OCamlbuild system.
+
+
+The easiest way
+***************
+Building and installing Onotify is essentially a matter of executing the
+following commands from the top of the project tree :
+
+$ ./configure --prefix=<installation directory>
+
+$ make install
+
+This will build and install the library as well as the associated documentation.
+
+
+Executing unit tests
+********************
+Onotify is shipped with a set of unit tests which can be executed to validate
+some of the library functionalities.
+
+To do this, you just have to execute the following command instead of 'make
+install' :
+
+$ make check
+
+
+Tuning the configuration phase
+******************************
+The 'configure' script supports a variety of options and environment variables
+to customize the configuration phase. The exhaustive option list can be seen
+with the following command :
+
+$ ./configure --help
+
+
+Cleaning the project tree
+*************************
+You can easily remove all files produced during the build phase with the
+following command :
+
+$ make clean
+
+or, if you wish to remove also the files produced during the configuration
+phase :
+
+$ make distclean
+
+
+Building Out Of Source NOT SUPPORTED
+************************************
+Unlike many other build systems such as Autotools, you must execute the
+configure script from the top of the project tree.
+
+
+Makefile other targets
+**********************
+The makefile supports some other targets :
+
+make lib    : build only the OCaml part of the library
+make stubs  : build only the C part of the library
+make doc    : build only the documentation
+make test   : build only the unit tests (but do not execute them)
+make dist   : produce a tarball of the project (works only from a Git
+	      repository)
+
