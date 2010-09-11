@@ -19,8 +19,8 @@
     @author Vincent Hanquez *)
 
 
-(** Bit Events to monitor *)
-type bit_req =
+(** Event types to monitor *)
+type ev_type_req =
     | R_Access		(** Read access to the file *)
     | R_Attrib		(** Metadata modification *)
     | R_Close_write	(** Write-opened file closed *)
@@ -42,8 +42,8 @@ type bit_req =
     | R_Oneshot		(** Watch the file until the first event *)
     | R_Onlydir		(** Watch the file only if it is a directory *)
 
-(** Bit events to receive *)
-type bit =
+(** Event types to receive *)
+type ev_type =
     | Access		(** Read access to the file *)
     | Attrib		(** Metadata modification *)
     | Close_write	(** Write-opened file closed *)
@@ -70,27 +70,27 @@ type wd = int
 
 (** Define an event *)
 type ev = { wd     : wd;	   (** The associated watch descriptor *)
-	    mask   : bit list;     (** List of received events *)
+	    mask   : ev_type list; (** List of received events *)
 	    cookie : int32;	   (** Unique identifier used to bind
 				       events together. Currently only
 				       used to bind Move_from and Move_to *)
 	    name   : string option (** Optional name associated to the event *) }
     
 
-val string_of_bit : bit -> string
-    (** [string_of_bit bit] returns the string reprensation of [bit]. *)
+val string_of_ev_type : ev_type -> string
+(** [string_of_ev_type ev_type] returns the string reprensation of [ev_type]. *)
 
 val init : unit -> Unix.file_descr
-    (** [init] creates a new Inotify context and return a descriptor on this context. *) 
+(** [init] creates a new Inotify context and returns a descriptor on this context. *) 
 
-val add_watch : Unix.file_descr -> string -> bit_req list -> wd
-    (** [add_watch fd inode events] adds a new watch point, monitoring for [events] on [inode],
-	to the descriptor [fd].
-
-	@return A watch descriptor *)
-	
+val add_watch : Unix.file_descr -> string -> ev_type_req list -> wd
+(** [add_watch fd inode events] adds a new watch point, monitoring for [events] on [inode],
+    to the descriptor [fd].
+    
+    @return A watch descriptor *)
+    
 val rm_watch : Unix.file_descr -> wd -> unit
-    (** [rm_watch fd wd] removes [wd] from the set of watch points associated to [fd]. *)
+(** [rm_watch fd wd] removes [wd] from the set of watch points associated to [fd]. *)
 
 val read : Unix.file_descr -> ev list
-    (** [read fd] reads for events associated to the descriptor [fd]. *)
+(** [read fd] reads for events associated to the descriptor [fd]. *)

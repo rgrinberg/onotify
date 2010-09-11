@@ -36,7 +36,7 @@
 #include <sys/inotify.h>
 
 
-static int inotify_bit_req_table[] = {
+static int inotify_ev_type_req_table[] = {
     IN_ACCESS, IN_ATTRIB, IN_CLOSE_WRITE, IN_CLOSE_NOWRITE,
     IN_CREATE, IN_DELETE, IN_DELETE_SELF, IN_MODIFY,
     IN_MOVE_SELF, IN_MOVED_FROM, IN_MOVED_TO, IN_OPEN,
@@ -46,7 +46,7 @@ static int inotify_bit_req_table[] = {
     IN_DONT_FOLLOW, IN_MASK_ADD, IN_ONESHOT, IN_ONLYDIR,
 };
 
-static int inotify_bit_table[] = {
+static int inotify_ev_type_table[] = {
     IN_ACCESS, IN_ATTRIB, IN_CLOSE_WRITE, IN_CLOSE_NOWRITE,
     IN_CREATE, IN_DELETE, IN_DELETE_SELF, IN_MODIFY,
     IN_MOVE_SELF, IN_MOVED_FROM, IN_MOVED_TO, IN_OPEN,
@@ -87,7 +87,7 @@ CAMLprim value stub_inotify_add_watch(value fd, value path, value mask)
     CAMLparam3(fd, path, mask);
     int cv_mask, wd;
 
-    cv_mask = caml_convert_flag_list(mask, inotify_bit_req_table);
+    cv_mask = caml_convert_flag_list(mask, inotify_ev_type_req_table);
     wd = inotify_add_watch(Int_val(fd), String_val(path), cv_mask);
     if (wd < 0)
 	inotify_error("add_watch");
@@ -123,8 +123,8 @@ CAMLprim value stub_inotify_convert(value buf)
     
     memcpy(&ev, String_val(buf), sizeof(struct inotify_event));
 
-    for (i = 0; inotify_bit_table[i]; i++) {
-	if (!(ev.mask & inotify_bit_table[i]))
+    for (i = 0; inotify_ev_type_table[i]; i++) {
+	if (!(ev.mask & inotify_ev_type_table[i]))
 	    continue;
 
 	tmpl = caml_alloc_small(2, Tag_cons);	

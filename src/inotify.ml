@@ -16,7 +16,7 @@
  *)
 
 
-type bit_req =
+type ev_type_req =
     | R_Access
     | R_Attrib
     | R_Close_write
@@ -39,7 +39,7 @@ type bit_req =
     | R_Onlydir
 
 
-type bit =
+type ev_type =
     | Access
     | Attrib
     | Close_write
@@ -59,7 +59,7 @@ type bit =
     | Unmount
 
 
-let string_of_bit = function
+let string_of_ev_type = function
     | Access		-> "ACCESS"
     | Attrib		-> "ATTRIB"
     | Close_write	-> "CLOSE_WRITE"
@@ -81,15 +81,15 @@ let string_of_bit = function
 type wd = int
 
 type ev = { wd     : wd;
-	    mask   : bit list;
+	    mask   : ev_type list;
 	    cookie : int32;
 	    name   : string option }
     
 external init	     : unit -> Unix.file_descr = "stub_inotify_init"
-external add_watch   : Unix.file_descr -> string -> bit_req list -> wd = "stub_inotify_add_watch"
+external add_watch   : Unix.file_descr -> string -> ev_type_req list -> wd = "stub_inotify_add_watch"
 external rm_watch    : Unix.file_descr -> wd -> unit = "stub_inotify_rm_watch"
 
-external convert     : string -> (wd * bit list * int32 * int) = "stub_inotify_convert"
+external convert     : string -> (wd * ev_type list * int32 * int) = "stub_inotify_convert"
 external struct_size : unit -> int = "stub_inotify_struct_size"
 external to_read     : Unix.file_descr -> int = "stub_inotify_ioctl_fionread"
 
