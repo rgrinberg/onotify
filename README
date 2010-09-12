@@ -1,0 +1,46 @@
+Overview
+********
+Onotify is an OCaml binding of the Linux Inotify framework.
+
+This project is a fork of another Inotify OCaml binding initiated by
+Vincent Hanquez <vincent@snarc.org>. This project can be found here :
+http://projects.snarc.org/ocaml-inotify
+
+Yet, Onotify is heavily based on this initial project and I would like
+to thank Vincent Hanquez for his work.
+
+The essential differences between Onotify and the initial project are :
+    - a new build system based on OCamlbuild, GNU make and a shell script ;
+    - some slight changes in the API, especially :
+	- a call to Inotify.read can now be safely blocking
+	- use of Unix.Unix_error to report runtime errors
+    - a documented API using ocamldoc
+    - a slightly improved test program
+    - the drop of the Inotify compatibility header (yet still present under unused/)
+
+
+Requirements
+************
+OCaml 3.11.2 (in fact, lower versions should work)
+Linux >= 2.6.13
+Glibc >= 2.4
+
+
+Installation
+************
+See the INSTALL file for complete instructions.
+
+
+License
+*******
+Onotify is licensed under the GNU LGPL 2.1 license, with the special
+exception on linking described in file LICENSE.
+
+
+Reporting bugs
+**************
+Onotify currently lacks some mailing-lists.
+Yet, you can freely write me at <ludovic@okazoo.eu> if you think to
+have found a bug. Please, just tag your email subject with "[Onotify] ..."
+to help me quickly detect your email.
+
