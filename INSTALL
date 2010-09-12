@@ -16,15 +16,23 @@ $ make install
 This will build and install the library as well as the associated documentation.
 
 
-Executing unit tests
-********************
-Onotify is shipped with a set of unit tests which can be executed to validate
-some of the library functionalities.
+GODI installation
+*****************
+Assuming you have a GODI distribution installed under /opt/godi. You can easily
+install Onotify in this distribution :
 
-To do this, you just have to execute the following command instead of 'make
-install' :
+$ ./configure --prefix=/opt/godi --libdir=/opt/godi/lib/ocaml/site-lib
+$ make install
 
-$ make check
+
+Quickly test the library
+************************
+Onotify is shipped with a simple test program to check the well behavior of the library.
+To use it :
+
+$ ./configure
+$ make test
+$ ./test_inotify.byte <dir> or ./test_inotify.native <dir>
 
 
 Tuning the configuration phase
@@ -62,7 +70,6 @@ The makefile supports some other targets :
 make lib    : build only the OCaml part of the library
 make stubs  : build only the C part of the library
 make doc    : build only the documentation
-make test   : build only the unit tests (but do not execute them)
 make dist   : produce a tarball of the project (works only from a Git
 	      repository)
 
