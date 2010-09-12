@@ -15,7 +15,7 @@
 
 ##############################
 pkgname=onotify
-pkgver=0.4
+pkgver=0.6
 ##############################
 
 
@@ -50,7 +50,7 @@ Options :
 	--docdir=<path>		Specify where documentation is installed.
 				(default is \$prefix/share/doc/onotify)
 	--libdir=<path>		Specify where libraries are installed.
-				(default is \$prefix/lib/ocaml/site-lib/$pkgname)
+				(default is \$prefix/lib/ocaml/site-lib)
 
 Relevant environment variables :
     OCAMLDIST	    Force the location of the OCaml distribution
