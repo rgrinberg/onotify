@@ -26,7 +26,6 @@ ocamlfind_in_installdir=false
 ocamlfind=
 ocamldist=
 builddir=
-includedir=
 docdir=
 libdir=
 buildconf=GNUmakefile.config
@@ -152,8 +151,8 @@ else
 fi
 config "BUILDDIR	= $builddir"
 
-if [ "$includedir" ] ; then
-    config "OCAMLBUILDFLAGS += -Is $OCAMLINCLUDES"
+if [ "$OCAMLINCLUDES" ] ; then
+    config "OCAMLBUILDFLAGS+= -Is $OCAMLINCLUDES"
 fi
 
 if ! $ocamlfind_in_installdir ; then

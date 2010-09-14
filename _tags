@@ -1,2 +1,2 @@
-<src>: include
-<tests/*>: use_stubs, use_unix
+<src>	    : include
+<tests/*>   : use_stubs, use_unix
