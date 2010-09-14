@@ -23,8 +23,8 @@ prefix=/usr/local
 verbose=false
 verbose_build=false
 ocamlfind_in_installdir=false
-ocamlfind_path=
-ocamldist_path=
+ocamlfind=
+ocamldist=
 builddir=
 includedir=
 docdir=
@@ -123,7 +123,7 @@ libunix=`find_lib unix`
 if [ $? -eq 0 ] ; then
     msg "$libunix"
 else
-    no
+    msg 'no'
     fatal 'No Unix library found'
 fi
 
