@@ -21,9 +21,17 @@ The essential differences between Onotify and the initial project are :
 
 Requirements
 ************
-OCaml 3.11.2 (in fact, lower versions should work)
-Linux >= 2.6.13
-Glibc >= 2.4
+    Runtime
+    *******
+    OCaml >= 3.10 
+    Linux >= 2.6.13
+    Glibc >= 2.4
+
+    Buildtime
+    *********
+    Runtime requirements plus :
+    GNU make
+    a POSIX shell
 
 
 Installation
@@ -39,7 +47,7 @@ exception on linking described in file LICENSE.
 
 Reporting bugs
 **************
-Onotify currently lacks some mailing-lists.
+Onotify currently lacks some mailing-lists (this could be solved very soon...).
 Yet, you can freely write me at <ludovic@okazoo.eu> if you think to
 have found a bug. Please, just tag your email subject with "[Onotify] ..."
 to help me quickly detect your email.
