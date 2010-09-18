@@ -2,8 +2,8 @@ Overview
 ********
 Onotify is an OCaml binding of the Linux Inotify framework.
 
-This project is a fork of another Inotify OCaml binding initiated by
-Vincent Hanquez <vincent@snarc.org>. This project can be found here :
+This project is a fork of ocaml-inotify, another Inotify OCaml binding initiated by
+Vincent Hanquez <vincent@snarc.org> which can be found here :
 http://projects.snarc.org/ocaml-inotify
 
 Yet, Onotify is heavily based on this initial project and I would like
