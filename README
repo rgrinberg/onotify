@@ -1,6 +1,6 @@
 Overview
 ********
-Onotify is an OCaml binding of the Linux Inotify framework.
+Onotify is an OCaml binding for the Linux Inotify framework.
 
 This project is a fork of ocaml-inotify, another Inotify OCaml binding initiated by
 Vincent Hanquez <vincent@snarc.org> which can be found here :
