@@ -45,10 +45,44 @@ Onotify is licensed under the GNU LGPL 2.1 license, with the special
 exception on linking described in file LICENSE.
 
 
+Project hosting
+***************
+Onotify is essentially hosted on OCamlForge, the forge of OCamlCore.
+
+There are two main URLs to obtain informations on Onotify :
+    - the project homepage   : http://onotify.forge.ocamlcore.org
+    - the project forge page : https://forge.ocamlcore.org/projects/onotify
+
+Yet, the soure code is hosted on GitHub at : http://github.com/lstordeur/onotify
+
+As GitHub lets to suppose, Onotify uses Git as Source Content Management system.
+
+You can clone the Git repository using :
+    HTTP : http://github.com/lstordeur/onotify.git
+    Git	 : git://github.com/lstordeur/onotify.git
+
+
+Keep informed about Onotify new releases
+****************************************
+You can subscribe to the low-traffic mailing-list : onotify-announce@lists.forge.ocamlcore.org
+to be informed about Onotify new releases.
+
+
 Reporting bugs
 **************
-Onotify currently lacks some mailing-lists (this could be solved very soon...).
-Yet, you can freely write me at <ludovic@okazoo.eu> if you think to
-have found a bug. Please, just tag your email subject with "[Onotify] ..."
-to help me quickly detect your email.
+The main and preferred way (for me :)) to report bugs is to use the Bug Tracking System on GitHub.
 
+Yet, this method requires you to have an account on GitHub.
+Thus, if you do not really want to subscribe to GitHub, you can use the other mailing-list :
+onotify-devel@lists.forge.ocamlcore.org
+
+
+Contributing and asking questions
+*********************************
+You can contribute or ask for some questions related to Onotify
+using the medium-traffic mailing-list : onotify-devel@lists.forge.ocamlcore.org
+
+
+Authors
+*******
+Ludovic Stordeur <ludovic@okazoo.eu>
