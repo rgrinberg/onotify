@@ -70,17 +70,23 @@ to be informed about Onotify new releases.
 
 Reporting bugs
 **************
-The main and preferred way (for me :)) to report bugs is to use the Bug Tracking System on GitHub.
+The main and preferred way (for me :)) to report bugs is to use the Bug Tracking System on OCamlForge.
 
-Yet, this method requires you to have an account on GitHub.
-Thus, if you do not really want to subscribe to GitHub, you can use the other mailing-list :
+Yet, this method requires you to have an account on OCamlForge.
+Thus, if you do not really want to subscribe to OCamlForge, you can use the devel mailing-list :
 onotify-devel@lists.forge.ocamlcore.org
 
 
-Contributing and asking questions
-*********************************
-You can contribute or ask for some questions related to Onotify
-using the medium-traffic mailing-list : onotify-devel@lists.forge.ocamlcore.org
+Contribution
+************
+You can contribute to Onotify by submitting patches on the Patch Tracking System on OCamlForge.
+Or you can use the devel mailing-list :
+onotify-devel@lists.forge.ocamlcore.org
+
+
+Technical support
+*****************
+You can ask for technical support on the devel mailing-list : onotify-devel@lists.forge.ocamlcore.org
 
 
 Authors
