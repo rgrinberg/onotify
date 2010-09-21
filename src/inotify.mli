@@ -78,19 +78,23 @@ type ev = { wd     : wd;	   (** The associated watch descriptor *)
     
 
 val string_of_ev_type : ev_type -> string
-(** [string_of_ev_type ev_type] returns the string reprensation of [ev_type]. *)
+(** @return The string representation of [ev_type]. *)
 
 val init : unit -> Unix.file_descr
-(** [init] creates a new Inotify context and returns a descriptor on this context. *) 
+(** [init] creates a new Inotify context.
+
+    @return A descriptor on the newly created context. *) 
 
 val add_watch : Unix.file_descr -> string -> ev_type_req list -> wd
 (** [add_watch fd inode events] adds a new watch point, monitoring for [events] on [inode],
     to the descriptor [fd].
     
-    @return A watch descriptor *)
+    @return A watch descriptor. *)
     
 val rm_watch : Unix.file_descr -> wd -> unit
 (** [rm_watch fd wd] removes [wd] from the set of watch points associated to [fd]. *)
 
 val read : Unix.file_descr -> ev list
-(** [read fd] reads for events associated to the descriptor [fd]. *)
+(** [read fd] reads for events associated to the descriptor [fd].
+
+    @return A list of event. *)
