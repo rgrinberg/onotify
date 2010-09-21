@@ -1,2 +1,4 @@
-<src>	    : include
-<tests/*>   : use_stubs, use_unix
+<src>		: include
+<src/*.cma>	: stubflags
+<src/*.cmxa>	: stubflags
+<tests/*>	: use_stubs, use_unix
