@@ -1,6 +1,7 @@
 version		= "@pkgver@"
 description	= "Inotify binding"
 requires	= "unix"
-archive(byte)	= "inotify.cma"
-archive(native)	= "inotify.cmxa"
+linkopts(byte)	= "-custom"
+archive(byte)	= "inotify.cma libinotify_stubs.a"
+archive(native)	= "inotify.cmxa libinotify_stubs.a"
 
