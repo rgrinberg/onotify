@@ -24,7 +24,9 @@ OCAMLBUILD	 = $(OCAMLDIST)/bin/ocamlbuild
 OCAMLMKLIB	 = $(OCAMLDIST)/bin/ocamlmklib
 DISTNAME 	 = $(PKGNAME)-$(PKGVER)
 DISTREV 	?= HEAD
+LIBSTUBS	 = dllinotify_stubs.so libinotify_stubs.a
 LIBFILES	 = $(foreach ext,mli cmi a cma cmxa, $(BUILDDIR)/src/inotify.$(ext))
+LIBFILES	+= $(foreach file, $(LIBSTUBS), $(BUILDDIR)/src/stubs/$(file))
 OCAMLFORGE_URL	 = lstordeur@ssh.ocamlcore.org:/home/groups/onotify/htdocs
 
 .PHONY: build
