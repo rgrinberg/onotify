@@ -15,8 +15,9 @@ MKDIR_P		 = mkdir -p
 RM_F		 = rm -f
 GIT_ARCHIVE	 = git archive
 CP_R		 = cp -r
-
+SCP_R		 = scp -r
 CONFIG		 = GNUmakefile.config
+
 include $(CONFIG)
 
 OCAMLBUILD	 = $(OCAMLDIST)/bin/ocamlbuild
@@ -24,7 +25,7 @@ OCAMLMKLIB	 = $(OCAMLDIST)/bin/ocamlmklib
 DISTNAME 	 = $(PKGNAME)-$(PKGVER)
 DISTREV 	?= HEAD
 LIBFILES	 = $(foreach ext,mli cmi a cma cmxa, $(BUILDDIR)/src/inotify.$(ext))
-
+OCAMLFORGE_URL	 = lstordeur@ssh.ocamlcore.org:/home/groups/onotify/htdocs
 
 .PHONY: build
 build: lib stubs doc
@@ -65,3 +66,12 @@ install: build
 .PHONY: dist
 dist:
 	$(P)$(GIT_ARCHIVE) --prefix=$(DISTNAME)/ $(DISTREV) . | bzip2 > $(DISTNAME).tar.bz2
+
+.PHONY: push-website
+push-website:
+	$(P)$(SCP_R) website/* $(OCAMLFORGE_URL)/
+
+.PHONY: push-api-doc
+push-api-doc: doc
+	$(P)$(SCP_R) inotify.docdir/* $(OCAMLFORGE_URL)/api/
+
