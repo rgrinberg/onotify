@@ -26,7 +26,6 @@ ocamlfind_in_installdir=false
 ocamlfind=
 ocamldist=
 builddir=
-findlib_name=inotify
 docdir=
 libdir=
 buildconf=GNUmakefile.config
@@ -51,9 +50,6 @@ Options :
 				(default is \$prefix/share/doc/onotify)
 	--libdir=<path>		Specify where libraries are installed.
 				(default is \$prefix/lib/ocaml/site-lib)
-	--install-as-onotify	Use 'onotify' as findlib name instead of
-				'inotify' to avoid findlib name clash with
-				the 'ocaml-inotify' project.
 
 Relevant environment variables :
     OCAMLDIST	    Force the location of the OCaml distribution
@@ -70,13 +66,12 @@ EOF
 parse_cli() {
     while [ $# -gt 0 ] ; do
 	case $1 in
-	    --verbose)			verbose=true ;;
-	    --verbose-build)		verbose_build=true ;;
-	    --prefix=*)			prefix=`echo $1 | cut -d= -f2` ;;
-	    --builddir=*)		builddir=`echo $1 | cut -d= -f2` ;;
-	    --docdir=*)			docdir=`echo $1 | cut -d= -f2` ;;
-	    --libdir=*)			libdir=`echo $1 | cut -d= -f2` ;;
-	    --install-as-onotify)	findlib_name=onotify ;;
+	    --verbose)		verbose=true ;;
+	    --verbose-build)	verbose_build=true ;;
+	    --prefix=*)		prefix=`echo $1 | cut -d= -f2` ;;
+	    --builddir=*)	builddir=`echo $1 | cut -d= -f2` ;;
+	    --docdir=*)		docdir=`echo $1 | cut -d= -f2` ;;
+	    --libdir=*)		libdir=`echo $1 | cut -d= -f2` ;;
 
 	    *)			fatal "Unrecognized option : $1"
 	esac
@@ -148,7 +143,6 @@ config "OCAMLFIND	= $ocamlfind"
 config "OCAMLBUILDFLAGS	= $OCAMLBUILDFLAGS"
 config "OCAMLFINDFLAGS	= $OCAMLFINDFLAGS"
 config "CLEANFILES	= $buildconf META"
-config "FINDLIB_NAME	= $findlib_name"
 
 if [ "$builddir" ] ; then
     config "OCAMLBUILDFLAGS += -build-dir $builddir"
@@ -179,7 +173,6 @@ msg
 msg "prefix                     : $prefix"
 msg "library install dir        : $libdir"
 msg "documentation install dir  : $docdir"
-msg "findlib name               : $findlib_name"
 msg
 msg "OCaml distribution         : $ocamldist"
 msg "ocamlfind                  : $ocamlfind"
