@@ -48,7 +48,8 @@ Options :
 				(default is _build)
 	--docdir=<path>		Specify where documentation is installed.
 				(default is \$prefix/share/doc/onotify)
-	--libdir=<path>		Specify where libraries are installed.
+	--libdir=<path>		Specify where ocamlfind will install the
+				package.
 				(default is \$prefix/lib/ocaml/site-lib)
 
 Relevant environment variables :
@@ -130,8 +131,8 @@ fi
 
 rm -f $buildconf
 
-[ "$libdir" ] || libdir='$(PREFIX)/lib/ocaml/site-lib'
-[ "$docdir" ] || docdir='$(PREFIX)/share/doc/$(PKGNAME)'
+[ "$libdir" ] || libdir="$prefix/lib/ocaml/site-lib"
+[ "$docdir" ] || docdir="$prefix/share/doc/$pkgname"
 
 config "PKGNAME		= $pkgname"
 config "PKGVER		= $pkgver"
@@ -171,11 +172,11 @@ msg
 msg
 
 msg "prefix                     : $prefix"
-msg "library install dir        : $libdir"
+msg "ocamlfind install dir      : $libdir"
 msg "documentation install dir  : $docdir"
 msg
 msg "OCaml distribution         : $ocamldist"
-msg "ocamlfind                  : $ocamlfind"
+msg "ocamlfind path             : $ocamlfind"
 msg "build directory            : $builddir"
 msg "include directories        : $OCAMLINCLUDES"
 msg "ocamlbuild flags           : $OCAMLBUILDFLAGS"
