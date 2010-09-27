@@ -74,7 +74,6 @@ find_ocamlfind() {
     checking "for ocamlfind in the installation path ($1)"
     if check_ocamlfind "$1" ; then
 	msg 'yes'
-	msg "Using $1/bin/ocamlfind hardcoded configuration"
 	ocamlfind_in_installdir=true
 	ocamlfind=$1/bin/ocamlfind
 	return 0
@@ -86,6 +85,8 @@ find_ocamlfind() {
     ocamlfind=`find_program ocamlfind`
     if [ $? -eq 0 ] ; then
 	msg $ocamlfind
+	msg 'Deactivating the update of the ocamlfind ld.conf'
+	OCAMLFINDFLAGS="$OCAMLFINDFLAGS -ldconf ignore"
 	return 0
     else
 	msg 'no'
