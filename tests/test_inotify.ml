@@ -1,6 +1,7 @@
 (* unit testing inotify *)
 
 open Printf
+open Inotify
 
 let _ =
     if Array.length Sys.argv < 2 then
@@ -14,12 +15,8 @@ let _ =
     let wd =  Inotify.add_watch fd Sys.argv.(1) [ Inotify.R_All ] in
     printf "Retrieved watch descriptor : %d\n%!" wd;
 
-    let string_of_ev ev =
-	let wd,mask,cookie,name = (ev.Inotify.wd,
-				   ev.Inotify.mask,
-				   ev.Inotify.cookie,
-				   ev.Inotify.name) in
-	let mask = String.concat ":" (List.map Inotify.string_of_ev_type mask) in
+    let string_of_ev {wd=wd; mask=mask; cookie=cookie; name=name} =
+	let mask = String.concat ":" (List.map string_of_ev_type mask) in
 	let name = match name with
 	    | Some s -> s
 	    | None   -> "\"\"" in
