@@ -68,11 +68,11 @@ parse_cli() {
     while [ $# -gt 0 ] ; do
 	case $1 in
 	    --verbose)		verbose=true ;;
+	    --verbose-build)	verbose_build=true ;;
 	    --prefix=*)		prefix=`echo $1 | cut -d= -f2` ;;
 	    --builddir=*)	builddir=`echo $1 | cut -d= -f2` ;;
 	    --docdir=*)		docdir=`echo $1 | cut -d= -f2` ;;
 	    --libdir=*)		libdir=`echo $1 | cut -d= -f2` ;;
-	    --verbose-build)    verbose_build=true ;;
 
 	    *)			fatal "Unrecognized option : $1"
 	esac

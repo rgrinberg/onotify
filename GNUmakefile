@@ -61,7 +61,7 @@ distclean: clean
 install: build
 	$(P)$(MKDIR_P) $(LIBDIR)
 	$(P)$(MKDIR_P) $(DOCDIR)/html
-	$(P)$(OCAMLFIND) install $(OCAMLFINDFLAGS) inotify META $(LIBFILES)
+	$(P)$(OCAMLFIND) install $(OCAMLFINDFLAGS) onotify META $(LIBFILES)
 	$(P)$(CP_R) LICENSE $(DOCDIR)/
 	$(P)$(CP_R) $(BUILDDIR)/src/inotify.docdir/* $(DOCDIR)/html/
 	
