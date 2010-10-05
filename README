@@ -21,17 +21,15 @@ The essential differences between Onotify and the initial project are :
 
 Requirements
 ************
-    Runtime
-    *******
-    OCaml >= 3.10 
-    Linux >= 2.6.13
-    Glibc >= 2.4
+    Runtime :
+     - OCaml >= 3.10 ;
+     - Linux >= 2.6.13 ;
+     - Glibc >= 2.4
 
-    Buildtime
-    *********
-    Runtime requirements plus :
-    GNU make
-    a POSIX shell
+    Buildtime :
+     - Runtime requirements ;
+     - GNU make ;
+     - a POSIX shell
 
 
 Installation
@@ -50,8 +48,8 @@ Project hosting
 Onotify is essentially hosted on OCamlForge, the forge of OCamlCore.
 
 There are two main URLs to obtain informations on Onotify :
-    - the project homepage   : http://onotify.forge.ocamlcore.org
-    - the project forge page : https://forge.ocamlcore.org/projects/onotify
+    - the project homepage	  : http://onotify.forge.ocamlcore.org
+    - the OCamlForge project page : https://forge.ocamlcore.org/projects/onotify
 
 Yet, the soure code is hosted on GitHub at : http://github.com/lstordeur/onotify
 
@@ -80,9 +78,8 @@ onotify-devel@lists.forge.ocamlcore.org
 Contribution
 ************
 You can contribute to Onotify by submitting patches on the Patch Tracking System on OCamlForge.
-Or you can use the devel mailing-list :
-onotify-devel@lists.forge.ocamlcore.org
-
+Or you can use the devel mailing-list : onotify-devel@lists.forge.ocamlcore.org
+ 
 
 Technical support
 *****************
