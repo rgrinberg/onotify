@@ -12,10 +12,10 @@ to thank Vincent Hanquez for his work.
 The essential differences between Onotify and the initial project are :
     - a new build system based on OCamlbuild, GNU make and a shell script ;
     - some slight changes in the API, especially :
-	- a call to Inotify.read can now be safely blocking
+	- a call to Inotify.read can now be safely blocking ;
 	- use of Unix.Unix_error to report runtime errors
-    - a documented API using ocamldoc
-    - a slightly improved test program
+    - a documented API using ocamldoc ;
+    - a slightly improved test program ;
     - the drop of the Inotify compatibility header (yet still present under unused/)
 
 
