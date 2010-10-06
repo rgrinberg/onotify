@@ -32,6 +32,12 @@ Requirements
      - a POSIX shell
 
 
+Supported platforms
+*******************
+    - Hardware	        : any supported by the OCaml distribution ;
+    - Operating Systems : GNU/Linux
+
+
 Installation
 ************
 See the INSTALL file for complete instructions.
@@ -47,7 +53,7 @@ Project hosting
 ***************
 Onotify is essentially hosted on OCamlForge, the forge of OCamlCore.
 
-There are two main URLs to obtain informations on Onotify :
+There are two main URLs where you can obtain informations about Onotify :
     - the project homepage	  : http://onotify.forge.ocamlcore.org
     - the OCamlForge project page : https://forge.ocamlcore.org/projects/onotify
 
@@ -62,17 +68,15 @@ You can clone the Git repository using :
 
 Keep informed about Onotify new releases
 ****************************************
-You can subscribe to the low-traffic mailing-list : onotify-announce@lists.forge.ocamlcore.org
-to be informed about Onotify new releases.
+You can keep informed about Onotify new releases or major announcements by using the News system
+on OCamlForge.
 
 
 Reporting bugs
 **************
-The main and preferred way (for me :)) to report bugs is to use the Bug Tracking System on OCamlForge.
-
-Yet, this method requires you to have an account on OCamlForge.
-Thus, if you do not really want to subscribe to OCamlForge, you can use the devel mailing-list :
-onotify-devel@lists.forge.ocamlcore.org
+You can report bugs through the Bug Tracking System on OCamlForge.
+Before submitting a bug report, please take the time to check if a similar bug report
+has not previously been posted on the Bug Tracking System.
 
 
 Contribution
@@ -83,7 +87,8 @@ Or you can use the devel mailing-list : onotify-devel@lists.forge.ocamlcore.org
 
 Technical support
 *****************
-You can ask for technical support on the devel mailing-list : onotify-devel@lists.forge.ocamlcore.org
+You can ask for technical support on the Tech. Support System on OCamlForge
+or on the devel mailing-list : onotify-devel@lists.forge.ocamlcore.org
 
 
 Authors
