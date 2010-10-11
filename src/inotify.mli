@@ -16,8 +16,52 @@
 (** Inotify OCaml binding public interface
 
     @author Ludovic Stordeur
-    @author Vincent Hanquez *)
+    @author Vincent Hanquez (initial project) *)
 
+
+(** {1 SYNOPSIS} *)
+
+(** {[
+    (* Make this example more readable. *)
+    open Inotify
+    open Printf
+
+    (* Initialize a new Inotify context and get a handle on it. *)
+    let fd = init ()
+    
+    (* Request for monitoring all events under "/tmp".
+       The returned watch descriptor is unused in this example. *)
+    let wd = add_watch fd "/tmp" [ Inotify.R_All ]
+
+    (* This is a convenience formatting routine to print an event. *)
+    let string_of_ev {wd=wd; mask=mask; cookie=cookie; name=name} =
+	let mask = String.concat ":" (List.map string_of_ev_type mask) in
+	let name = match name with
+	    | Some s -> s
+	    | None   -> "\"\"" in
+	sprintf "wd[%d] mask[%s] cookie[%ld] %s" wd mask cookie name
+	
+    (* This example never ends. Send a termination signal to kill it. *)
+    let _ = 
+        while true
+        do
+            (* Read the Inotify context.
+               This can be a blocking operation, so you can poll the file descriptor before reading it. *)
+	    let evs = read fd in
+
+            (* Process all detected events. *)
+	    List.iter (fun ev -> printf "%s\n%!" (string_of_ev ev)) evs
+        done;
+    
+        (* Close the Inotify context.
+           In this example, this operation is never reached because of the above infinite loop.
+           Howerver, this is always a good practice to close file descriptors... ;) *)
+        Unix.close fd
+    ]}
+*)
+
+ 
+(** {1 API Description} *)
 
 (** Event types to monitor *)
 type ev_type_req =
