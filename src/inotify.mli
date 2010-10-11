@@ -55,7 +55,7 @@
     
         (* Close the Inotify context.
            In this example, this operation is never reached because of the above infinite loop.
-           Howerver, this is always a good practice to close file descriptors... ;) *)
+           However, this is always a good practice to close file descriptors... ;) *)
         Unix.close fd
     ]}
 *)
