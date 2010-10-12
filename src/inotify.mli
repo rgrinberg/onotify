@@ -19,7 +19,7 @@
     @author Vincent Hanquez (initial project) *)
 
 
-(** {1 SYNOPSIS} *)
+(** {2 SYNOPSIS} *)
 
 (** {[
     (* Make this example more readable. *)
@@ -61,7 +61,7 @@
 *)
 
  
-(** {1 API Description} *)
+(** {2 API Description} *)
 
 (** Event types to monitor *)
 type ev_type_req =
@@ -141,4 +141,4 @@ val rm_watch : Unix.file_descr -> wd -> unit
 val read : Unix.file_descr -> ev list
 (** [read fd] reads for events associated to the descriptor [fd].
 
-    @return A list of event. *)
+    @return An event list. *)
