@@ -24,7 +24,6 @@
 (** {[
     (* Make this example more readable. *)
     open Inotify
-    open Printf
 
     (* Initialize a new Inotify context and get a handle on it. *)
     let fd = init ()
@@ -39,14 +38,15 @@
 	let name = match name with
 	    | Some s -> s
 	    | None   -> "\"\"" in
-	sprintf "wd[%d] mask[%s] cookie[%ld] %s" wd mask cookie name
+	Printf.sprintf "wd[%d] mask[%s] cookie[%ld] %s" wd mask cookie name
 	
     (* This example never ends. Send a termination signal to kill it. *)
     let _ = 
         while true
         do
             (* Read the Inotify context.
-               This can be a blocking operation, so you can poll the file descriptor before reading it. *)
+               This can be a blocking operation, so you can poll the file descriptor
+	       with a timeout before reading it. *)
 	    let evs = read fd in
 
             (* Process all detected events. *)
@@ -122,23 +122,21 @@ type ev = { wd     : wd;	   (** The associated watch descriptor *)
     
 
 val string_of_ev_type : ev_type -> string
-(** @return The string representation of [ev_type]. *)
+(** [string_of_ev_type ev_type] returns the string representation of [ev_type]. *)
 
 val init : unit -> Unix.file_descr
-(** [init] creates a new Inotify context.
-
-    @return A descriptor on the newly created context. *) 
+(** [init] creates a new Inotify context and returns a descriptor on this context.
+    At the end, this descriptor must be closed using [Unix.close]. *)
 
 val add_watch : Unix.file_descr -> string -> ev_type_req list -> wd
 (** [add_watch fd inode events] adds a new watch point, monitoring for [events] on [inode],
-    to the descriptor [fd].
-    
-    @return A watch descriptor. *)
+    to the descriptor [fd] and returns a watch descriptor on this watch point. *)
     
 val rm_watch : Unix.file_descr -> wd -> unit
 (** [rm_watch fd wd] removes [wd] from the set of watch points associated to [fd]. *)
 
 val read : Unix.file_descr -> ev list
-(** [read fd] reads for events associated to the descriptor [fd].
-
-    @return An event list. *)
+(** [read fd] reads for events associated to the descriptor [fd] and returns a list of events.
+    If there is no pending event when calling this function, [read] blocks and waits for events.
+    It can be useful to precede [read] by [Unix.select] (with a possible timeout) to control more
+    finely the wait process. *)
