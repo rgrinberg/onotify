@@ -15,4 +15,4 @@
 scriptpath=`readlink -f $0`
 scriptdir=`dirname $scriptpath`
 
-lynx -dump $scriptdir/index.html | perl $scriptdir/html2README.pl > $scriptdir/../README
+lynx -dump -width=110 $scriptdir/index.html | perl $scriptdir/html2README.pl > $scriptdir/../README
