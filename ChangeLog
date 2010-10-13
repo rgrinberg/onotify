@@ -1,10 +1,11 @@
-Onotify 0.6 (September 22th 2010)
-=================================
+Onotify 0.6 (Sep 22th 2010)
+===========================
 
 This the first public release of Onotify.
 
-Onotify 0.6.1 (October 5th 2010)
-================================
+
+Onotify 0.6.1 (Oct 5th 2010)
+============================
 
 This is mainly a bugfix release.
 
@@ -18,3 +19,4 @@ Changed :
     the same tree as the ocamlfind one.
     * Minor typo updates in the build system and code cleanup in the test
     program.
+
