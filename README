@@ -1,96 +1,100 @@
 Overview
 ********
-Onotify is an OCaml binding for the Linux Inotify framework.
+   Onotify is an OCaml binding for the Linux Inotify framework.
 
-This project is a fork of ocaml-inotify, another Inotify OCaml binding initiated by
-Vincent Hanquez <vincent@snarc.org> which can be found here :
-http://projects.snarc.org/ocaml-inotify
+   This project is a fork of ocaml-inotify, another Inotify OCaml binding
+   initiated by Vincent Hanquez <vincent@snarc.org> which can be found
+   here : http://projects.snarc.org/ocaml-inotify
 
-Yet, Onotify is heavily based on this initial project and I would like
-to thank Vincent Hanquez for his work.
+   Yet, Onotify is heavily based on this initial project and I would like
+   to thank Vincent Hanquez for his work.
 
-The essential differences between Onotify and the initial project are :
-    - a new build system based on OCamlbuild, GNU make and a shell script ;
-    - some slight changes in the API, especially :
-	- a call to Inotify.read can now be safely blocking ;
-	- use of Unix.Unix_error to report runtime errors
-    - a documented API using ocamldoc ;
-    - a slightly improved test program ;
-    - the drop of the Inotify compatibility header (yet still present under unused/)
+   The essential differences between Onotify and the initial project are :
+     * a new build system based on OCamlbuild, GNU make and a shell
+       script ;
+     * some slight changes in the API, especially :
+          + a call to Inotify.read can now be safely blocking ;
+          + use of Unix.Unix_error to report runtime errors
+     * a documented API using ocamldoc ;
+     * a slightly improved test program ;
+     * the drop of the Inotify compatibility header (yet still present
+       under unused/)
 
 
 Requirements
 ************
-    Runtime :
-     - OCaml >= 3.10 ;
-     - Linux >= 2.6.13 ;
-     - Glibc >= 2.4
+   Runtime :
+     * OCaml >= 3.10 ;
+     * Linux >= 2.6.13 ;
+     * Glibc >= 2.4
 
-    Buildtime :
-     - Runtime requirements ;
-     - GNU make ;
-     - a POSIX shell
+   Buildtime :
+     * Runtime requirements ;
+     * GNU make ;
+     * a POSIX shell
 
 
 Supported platforms
 *******************
-    - Hardware	        : any supported by the OCaml distribution ;
-    - Operating Systems : GNU/Linux
-
-
-Installation
-************
-See the INSTALL file for complete instructions.
+     * Hardware : any supported by the OCaml distribution ;
+     * Operating systems : GNU/Linux
 
 
 License
 *******
-Onotify is licensed under the GNU LGPL 2.1 license, with the special
-exception on linking described in file LICENSE.
+   Onotify is licensed under the GNU LGPL 2.1 license, with the special
+   exception on linking described in file LICENSE.
 
 
 Project hosting
 ***************
-Onotify is essentially hosted on OCamlForge, the forge of OCamlCore.
+   Onotify is essentially hosted on OCamlForge, the forge of OCamlCore.
 
-There are two main URLs where you can obtain informations about Onotify :
-    - the project homepage	  : http://onotify.forge.ocamlcore.org
-    - the OCamlForge project page : https://forge.ocamlcore.org/projects/onotify
+   There are two main places where you can obtain informations about
+   Onotify :
+     * the project homepage : http://onotify.forge.ocamlcore.org
+     * the OCamlForge project page :
+       https://forge.ocamlcore.org/projects/onotify
 
-Yet, the soure code is hosted on GitHub at : http://github.com/lstordeur/onotify
+   Yet, the soure code is hosted on GitHub at :
+   http://github.com/lstordeur/onotify
 
-As GitHub lets to suppose, Onotify uses Git as Source Content Management system.
+   As GitHub lets to suppose, Onotify uses Git as Source Content
+   Management system.
 
-You can clone the Git repository using :
-    HTTP : http://github.com/lstordeur/onotify.git
-    Git	 : git://github.com/lstordeur/onotify.git
+   You can clone the Git repository using :
+     * HTTP : http://github.com/lstordeur/onotify.git ;
+     * Git : git://github.com/lstordeur/onotify.git
 
 
 Keep informed about Onotify new releases
 ****************************************
-You can keep informed about Onotify new releases or major announcements by using the News System
-on OCamlForge.
+   You can keep informed about Onotify new releases or major announcements
+   by using the News System on OCamlForge.
 
 
 Reporting bugs
 **************
-You can report bugs through the Bug Tracking System on OCamlForge.
-Before submitting a bug report, please take the time to check if a similar bug report
-has not previously been posted on the Bug Tracking System.
+   You can report bugs through the Bug Tracking System on OCamlForge.
+   Before submitting a bug report, please take the time to check if a
+   similar bug report has not previously been posted on the Bug Tracking
+   System.
 
 
 Contribution
 ************
-You can contribute to Onotify by submitting patches on the Patch Tracking System on OCamlForge.
-Or you can use the devel mailing-list : onotify-devel@lists.forge.ocamlcore.org
- 
+   You can contribute to Onotify by submitting patches on the Patch
+   Tracking System on OCamlForge. Or you can use the devel mailing-list :
+   onotify-devel@lists.forge.ocamlcore.org
+
 
 Technical support
 *****************
-You can ask for technical support on the Tech. Support System on OCamlForge
-or on the devel mailing-list : onotify-devel@lists.forge.ocamlcore.org
+   You can ask for technical support on the Tech. Support System on
+   OCamlForge or on the devel mailing-list :
+   onotify-devel@lists.forge.ocamlcore.org
 
 
 Authors
 *******
-Ludovic Stordeur <ludovic@okazoo.eu>
+   Ludovic Stordeur <ludovic@okazoo.eu>
