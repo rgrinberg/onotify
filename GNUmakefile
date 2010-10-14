@@ -69,7 +69,7 @@ install: build
 dist:
 	$(P)$(GIT_ARCHIVE) --prefix=$(DISTNAME)/ $(DISTREV) . | bzip2 > $(DISTNAME).tar.bz2
 
-README:
+README: website/index.html website/html2README
 	$(P)LANG=C lynx -dump -width=110 website/index.html | website/html2README > $@
 
 .PHONY: push-website
