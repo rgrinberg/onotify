@@ -2,8 +2,8 @@ Overview
 ********
    Onotify is an OCaml binding for the Linux Inotify framework.
 
-   This project is a fork of ocaml-inotify, another Inotify OCaml binding initiated by Vincent Hanquez
-   <vincent@snarc.org> which can be found here : http://projects.snarc.org/ocaml-inotify
+   This project is a fork of ocaml-inotify, another Inotify OCaml binding initiated by [1]Vincent
+   Hanquez which can be found [2]here.
 
    Yet, Onotify is heavily based on this initial project and I would like to thank Vincent Hanquez for
    his work.
@@ -48,10 +48,10 @@ Project hosting
    Onotify is essentially hosted on OCamlForge, the forge of OCamlCore.
 
    There are two main places where you can obtain informations about Onotify :
-     * the project homepage : http://onotify.forge.ocamlcore.org
-     * the OCamlForge project page : https://forge.ocamlcore.org/projects/onotify
+     * [6]the project homepage ;
+     * [7]the OCamlForge project page
 
-   Yet, the soure code is hosted on GitHub at : http://github.com/lstordeur/onotify
+   Yet, the soure code is hosted on [8]GitHub.
 
    As GitHub lets to suppose, Onotify uses Git as Source Content Management system.
 
@@ -76,15 +76,30 @@ Reporting bugs
 Contribution
 ************
    You can contribute to Onotify by submitting patches on the Patch Tracking System on OCamlForge. Or
-   you can use the devel mailing-list : onotify-devel@lists.forge.ocamlcore.org
+   you can use [9]the devel mailing-list.
 
 
 Technical support
 *****************
-   You can ask for technical support on the Tech. Support System on OCamlForge or on the devel
-   mailing-list : onotify-devel@lists.forge.ocamlcore.org
+   You can ask for technical support on the Tech. Support System on OCamlForge or on [10]the devel
+   mailing-list.
 
 
 Authors
 *******
-   Ludovic Stordeur <ludovic@okazoo.eu>
+   [11]Ludovic Stordeur
+
+
+References
+**********
+   1. mailto:vincent@snarc.org
+   2. http://projects.snarc.org/ocaml-inotify
+   3. https://forge.ocamlcore.org/frs/download.php/478/onotify-0.6.1.tar.bz2
+   4. https://forge.ocamlcore.org/projects/onotify
+   5. file://localhost/home/ludovic/dev/projects/onotify/website/api
+   6. http://onotify.forge.ocamlcore.org/
+   7. https://forge.ocamlcore.org/projects/onotify
+   8. http://github.com/lstordeur/onotify
+   9. mailto:onotify-devel@lists.forge.ocamlcore.org
+  10. mailto:onotify-devel@lists.forge.ocamlcore.org
+  11. mailto:ludovic@okazoo.eu

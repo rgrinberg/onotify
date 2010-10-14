@@ -37,8 +37,8 @@ while (<>) {
     }
 
     if ($state eq 'CORE') {
-	# Remove the 'Current status' and 'Références' sections
-	if (/^(Current status|Références)\s*$/) {
+	# Remove the 'Current status' section
+	if (/^(Current status)\s*$/) {
 	    $state = 'DEAD_SECTION';
 	    next
 	}
@@ -50,9 +50,6 @@ while (<>) {
 	    <>; # Eat the following blank line
 	    next;
 	}
-
-	# Remove link refs
-	s/\[\d+\]//g;
     }
 
     # Reaching this point, the line can be outputed.
