@@ -1,3 +1,17 @@
+Onotify 0.6.2 (Oct ??th 2010)
+=============================
+This is a minor release.
+
+Changed :
+  * renamed this file from ChangeLog to NEWS and reworked its content
+
+Improved :
+  * some changes in the README file ;
+  * completed the API documentation :
+    + added a short example (mostly borrowed from the test program) ;
+    + reworked the function documentations (dropped the use of tag @return)
+
+
 Onotify 0.6.1 (Oct 5th 2010)
 ============================
 This is mainly a bugfix release.
