@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/perl
 
 # Copyright (C) 2010 Ludovic Stordeur <ludovic@okazoo.eu>
 #
@@ -12,7 +12,50 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Lesser General Public License for more details.
 
-scriptpath=`readlink -f $0`
-scriptdir=`dirname $scriptpath`
 
-LANG=C lynx -dump -width=110 $scriptdir/index.html | perl $scriptdir/html2README.pl > $scriptdir/../README
+use strict;
+use warnings;
+
+my $state = 'HEADER';
+
+while (<>) {
+    if ($state eq 'HEADER') {
+	# Remove the title
+	next if /^\s+Onotify\s+$/;
+
+	# Remove any blank line
+	next if /^\s*$/;
+
+	# Change state when encountering the first section.
+	$state = 'CORE' if /^[^\s]/;
+    }
+
+    if ($state eq 'DEAD_SECTION') {
+	if (/^[^\s]/) {
+	    $state = 'CORE';
+	} else {
+	    next;
+	}
+    }
+
+    if ($state eq 'CORE') {
+	# Remove the 'Current status' section
+	if (/^(Current status)\s*$/) {
+	    $state = 'DEAD_SECTION';
+	    next
+	}
+	# Underline sections
+	if (/^([^\s].*)\s*/) {
+	    print "\n";
+	    print;
+	    print '*'x(length $1)."\n";
+	    <>; # Eat the following blank line
+	    next;
+	}
+    }
+
+    # Reaching this point, the line can be outputed.
+    print;
+}
+
+    
