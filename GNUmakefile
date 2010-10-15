@@ -81,11 +81,12 @@ doc: README website/index.html
 website/index.html: doc/doc.xml doc/xml2x.xsl
 	$(P)xsltproc $< > $@
 
-doc/readme.xhtml: doc/doc.xml doc/xml2x.xsl
+$(BUILDDIR)/doc/readme.xhtml: doc/doc.xml doc/xml2x.xsl
+	$(P)mkdir -p $(BUILDDIR)/doc
 	$(P)xsltproc -stringparam backend readme $< > $@
 
-README: doc/readme.xhtml doc/html2README
-	$(P)LANG=C lynx -dump -width=110 $< | doc/html2README > $@
+README: $(BUILDDIR)/doc/readme.xhtml doc/xhtml2README
+	$(P)LANG=C lynx -dump -width=110 $< | doc/xhtml2README > $@
 
 .PHONY: push-website
 push-website:
