@@ -84,7 +84,7 @@ type ev = { wd     : wd;
 	    mask   : ev_type list;
 	    cookie : int32;
 	    name   : string option }
-    
+
 external init	     : unit -> Unix.file_descr = "stub_inotify_init"
 external add_watch   : Unix.file_descr -> string -> ev_type_req list -> wd = "stub_inotify_add_watch"
 external rm_watch    : Unix.file_descr -> wd -> unit = "stub_inotify_rm_watch"
@@ -98,11 +98,11 @@ let read fd =
     let _,_,_  = Unix.select [fd] [] [] (-1.) in
     let ss     = struct_size () in
     let toread = to_read fd in
-    
+
     let ret    = ref [] in
     let buf    = String.make toread '\000' in
     let toread = Unix.read fd buf 0 toread in
-    
+
     let read_c_string offset len =
 	let index = ref 0 in
 	while !index < len && buf.[offset + !index] <> '\000' do
@@ -110,7 +110,7 @@ let read fd =
 	done;
 	String.sub buf offset !index
     in
-    
+
     let i = ref 0 in
     while !i < toread do
 	let wd,mask,cookie,len = convert (String.sub buf !i ss) in

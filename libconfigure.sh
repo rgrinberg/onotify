@@ -91,7 +91,7 @@ find_ocamlfind() {
     else
 	msg 'no'
     fi
-    
+
     return 1
 }
 

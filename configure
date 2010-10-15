@@ -115,7 +115,7 @@ if [ "$OCAMLFIND" ] ; then
     fi
 else
     msg 'Looking for ocamlfind'
-    find_ocamlfind "$prefix" || fatal 'No ocamlfind found' 
+    find_ocamlfind "$prefix" || fatal 'No ocamlfind found'
 fi
 
 checking 'for the Unix library'

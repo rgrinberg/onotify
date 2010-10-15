@@ -57,5 +57,3 @@ while (<>) {
     # Reaching this point, the line can be outputed.
     print;
 }
-
-    

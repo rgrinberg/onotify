@@ -27,7 +27,7 @@
 
     (* Initialize a new Inotify context and get a handle on it. *)
     let fd = init ()
-    
+
     (* Request for monitoring all events under "/tmp".
        The returned watch descriptor is unused in this example. *)
     let wd = add_watch fd "/tmp" [ Inotify.R_All ]
@@ -39,9 +39,9 @@
 	    | Some s -> s
 	    | None   -> "\"\"" in
 	Printf.sprintf "wd[%d] mask[%s] cookie[%ld] %s" wd mask cookie name
-	
+
     (* This example never ends. Send a termination signal to kill it. *)
-    let _ = 
+    let _ =
         while true
         do
             (* Read the Inotify context.
@@ -52,7 +52,7 @@
             (* Process all detected events. *)
 	    List.iter (fun ev -> printf "%s\n%!" (string_of_ev ev)) evs
         done;
-    
+
         (* Close the Inotify context.
            In this example, this operation is never reached because of the above infinite loop.
            However, this is always a good practice to close file descriptors... ;) *)
@@ -60,7 +60,7 @@
     ]}
 *)
 
- 
+
 (** {2 API Description} *)
 
 (** Event types to monitor *)
@@ -109,7 +109,7 @@ type ev_type =
 
 
 (** A watch descriptor *)
-type wd = int 
+type wd = int
 
 
 (** Define an event *)
@@ -119,7 +119,7 @@ type ev = { wd     : wd;	   (** The associated watch descriptor *)
 				       events together. Currently only
 				       used to bind Move_from and Move_to *)
 	    name   : string option (** Optional name associated to the event *) }
-    
+
 
 val string_of_ev_type : ev_type -> string
 (** [string_of_ev_type ev_type] returns the string representation of [ev_type]. *)
@@ -131,7 +131,7 @@ val init : unit -> Unix.file_descr
 val add_watch : Unix.file_descr -> string -> ev_type_req list -> wd
 (** [add_watch fd inode events] adds a new watch point, monitoring for [events] on [inode],
     to the descriptor [fd] and returns a watch descriptor on this watch point. *)
-    
+
 val rm_watch : Unix.file_descr -> wd -> unit
 (** [rm_watch fd wd] removes [wd] from the set of watch points associated to [fd]. *)
 

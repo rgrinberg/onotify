@@ -64,7 +64,7 @@ install: build
 	$(P)$(OCAMLFIND) install $(OCAMLFINDFLAGS) onotify META $(LIBFILES)
 	$(P)$(CP_R) LICENSE $(DOCDIR)/
 	$(P)$(CP_R) $(BUILDDIR)/src/inotify.docdir/* $(DOCDIR)/html/
-	
+
 .PHONY: dist
 dist:
 	$(P)$(GIT_ARCHIVE) --prefix=$(DISTNAME)/ $(DISTREV) . | bzip2 > $(DISTNAME).tar.bz2
