@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="xml2x.xsl"?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE onotify [<!ENTITY nbsp "&#160;">]>
 
 <!--
 Copyright (C) 2010 Ludovic Stordeur <ludovic@okazoo.eu>
@@ -16,19 +17,13 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 -->
 
+<onotify>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <!-- <meta http-equiv="Content-type" content="text/html;charset=UTF-8"> -->
-    <title>Onotify project homepage</title>
-    <link rel="stylesheet" href="style.css" type="text/css"/>
-  </head>
+  <pagetitle>Onotify project homepage</pagetitle>
+  <title>Onotify</title>
 
-  <body>
-    <h1>Onotify</h1>
 
-    <h2>Overview</h2>
-
+  <section name="Overview">
     <p>Onotify is an OCaml binding for the Linux Inotify framework.</p>
 
     <p>
@@ -56,10 +51,10 @@ GNU Lesser General Public License for more details.
       <li>a slightly improved test program&nbsp;;</li>
       <li>the drop of the Inotify compatibility header (yet still present under unused/)</li>
     </ul>
+  </section>
 
 
-    <h2>Current status</h2>
-
+  <web-section name="Current status">
     <p>Current stable release is <b>0.6.1</b>, released on <b>05/10/2010</b>.</p>
 
     <p>You can download the latest tarball
@@ -72,11 +67,11 @@ GNU Lesser General Public License for more details.
     <p>You can browse the latest Onotify API
       <a href="http://onotify.forge.ocamlcore.org/api">here</a>.
     </p>
+  </web-section>
 
 
-    <h2>Requirements</h2>
-
-    <p>Runtime&nbsp;:</p>
+  <section name="Requirements"> 
+      <p>Runtime&nbsp;:</p>
     <ul>
       <li>OCaml >= 3.10&nbsp;;</li>
       <li>Linux >= 2.6.13&nbsp;;</li>
@@ -89,26 +84,26 @@ GNU Lesser General Public License for more details.
       <li>GNU make&nbsp;;</li>
       <li>a POSIX shell</li>
     </ul>
+  </section>
 
 
-    <h2>Supported platforms</h2>
-
+  <section name="Supported platforms">
     <ul>
       <li>Hardware          : any supported by the OCaml distribution&nbsp;;</li>
       <li>Operating systems : GNU/Linux</li>
     </ul>
+  </section>
 
 
-    <h2>License</h2>
-
+  <section name="License">
     <p>
       Onotify is licensed under the GNU LGPL 2.1 license, with the special
       exception on linking described in file LICENSE.
     </p>
+  </section>
 
 
-    <h2>Project hosting</h2>
-
+  <section name="Project hosting">
     <p>Onotify is essentially hosted on OCamlForge, the forge of OCamlCore.</p>
 
     <p>There are two main places where you can obtain informations about Onotify&nbsp;:</p>
@@ -129,62 +124,46 @@ GNU Lesser General Public License for more details.
       <li>HTTP : http://github.com/lstordeur/onotify.git&nbsp;;</li>
       <li>Git  : git://github.com/lstordeur/onotify.git</li>
     </ul>
+  </section>
 
 
-    <h2>Keep informed about Onotify new releases</h2>
-
+  <section name="Keep informed about Onotify new releases">
     <p>
       You can keep informed about Onotify new releases or major announcements
       by using the News System on OCamlForge.
     </p>
+  </section>
 
 
-    <h2>Reporting bugs</h2>
-
+  <section name="Reporting bugs">
     <p>
       You can report bugs through the Bug Tracking System on OCamlForge.
       Before submitting a bug report, please take the time to check if a similar bug report
       has not previously been posted on the Bug Tracking System.
     </p>
+  </section>
 
 
-    <h2>Contribution</h2>
-
+  <section name="Contribution">
     <p>
       You can contribute to Onotify by submitting patches on the Patch Tracking System on OCamlForge.
       Or you can use
       <a href="mailto:onotify-devel@lists.forge.ocamlcore.org">the devel mailing-list</a>.
     </p>
+  </section>
 
 
-    <h2>Technical support</h2>
-
+  <section name="Technical support">
     <p>
       You can ask for technical support on the Tech. Support System on OCamlForge
       or on
       <a href="mailto:onotify-devel@lists.forge.ocamlcore.org">the devel mailing-list</a>.
     </p>
+  </section>
 
 
-    <h2>Authors</h2>
+  <authors>
+    <author email="ludovic@okazoo.eu">Ludovic Stordeur</author>
+  </authors>
 
-    <p><a href="mailto:ludovic@okazoo.eu">Ludovic Stordeur</a></p>
-
-
-    <!-- Onotify is W3C compliant -->
-    <p>
-      <a href="http://validator.w3.org/check?uri=referer">
-	<img style="border:0;width:88px;height:31px"
-	     src="http://www.w3.org/Icons/valid-xhtml10"
-             alt="Valid XHTML 1.0 Strict"/>
-      </a>
-    
-      <a href="http://jigsaw.w3.org/css-validator/check/referer">
-        <img style="border:0;width:88px;height:31px"
-             src="http://jigsaw.w3.org/css-validator/images/vcss"
-             alt="CSS Valide !"/>
-      </a>
-    </p>
-    
-  </body>
-</html>
+</onotify>

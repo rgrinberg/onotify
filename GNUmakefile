@@ -30,7 +30,7 @@ LIBFILES	+= $(foreach file, $(LIBSTUBS), $(BUILDDIR)/src/stubs/$(file))
 OCAMLFORGE_URL	 = lstordeur@ssh.ocamlcore.org:/home/groups/onotify/htdocs
 
 .PHONY: build
-build: lib stubs doc
+build: lib stubs apidoc
 
 .PHONY: lib
 lib:
@@ -40,8 +40,8 @@ lib:
 stubs:
 	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/stubs/inotify_stubs.otarget
 
-.PHONY: doc
-doc:
+.PHONY: apidoc
+apidoc:
 	$(P)$(OCAMLBUILD) $(OCAMLBUILDFLAGS) src/inotify.docdir/index.html
 
 
@@ -69,14 +69,25 @@ install: build
 dist:
 	$(P)$(GIT_ARCHIVE) --prefix=$(DISTNAME)/ $(DISTREV) . | bzip2 > $(DISTNAME).tar.bz2
 
-README: website/index.html html2README
-	$(P)LANG=C lynx -dump -width=110 website/index.html | ./html2README > $@
+
+.PHONY: push-apidoc
+push-api-doc: apidoc
+	$(P)$(SCP_R) inotify.docdir/* $(OCAMLFORGE_URL)/api/
+
+
+.PHONY: doc
+doc: README website/index.html
+
+website/index.html: doc/doc.xml doc/xml2x.xsl
+	$(P)xsltproc $< > $@
+
+doc/readme.xhtml: doc/doc.xml doc/xml2x.xsl
+	$(P)xsltproc -stringparam backend readme $< > $@
+
+README: doc/readme.xhtml doc/html2README
+	$(P)LANG=C lynx -dump -width=110 $< | doc/html2README > $@
 
 .PHONY: push-website
 push-website:
 	$(P)$(SCP_R) website/* $(OCAMLFORGE_URL)/
-
-.PHONY: push-api-doc
-push-api-doc: doc
-	$(P)$(SCP_R) inotify.docdir/* $(OCAMLFORGE_URL)/api/
 

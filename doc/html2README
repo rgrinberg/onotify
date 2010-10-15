@@ -16,42 +16,14 @@
 use strict;
 use warnings;
 
-my $state = 'HEADER';
-
 while (<>) {
-    if ($state eq 'HEADER') {
-	# Remove the title
-	next if /^\s+Onotify\s+$/;
-
-	# Remove any blank line
-	next if /^\s*$/;
-
-	# Change state when encountering the first section.
-	$state = 'CORE' if /^[^\s]/;
-    }
-
-    if ($state eq 'DEAD_SECTION') {
-	if (/^[^\s]/) {
-	    $state = 'CORE';
-	} else {
-	    next;
-	}
-    }
-
-    if ($state eq 'CORE') {
-	# Remove the 'Current status' section
-	if (/^(Current status)\s*$/) {
-	    $state = 'DEAD_SECTION';
-	    next
-	}
-	# Underline sections
-	if (/^([^\s].*)\s*/) {
-	    print "\n";
-	    print;
-	    print '*'x(length $1)."\n";
-	    <>; # Eat the following blank line
-	    next;
-	}
+    # Underline sections
+    if (/^([^\s].*)\s*/) {
+        print "\n";
+        print;
+        print '*'x(length $1)."\n";
+        <>; # Eat the following blank line
+        next;
     }
 
     # Reaching this point, the line can be outputed.
