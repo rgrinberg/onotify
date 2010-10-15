@@ -48,10 +48,10 @@ Project hosting
    Onotify is essentially hosted on OCamlForge, the forge of OCamlCore.
 
    There are two main places where you can obtain informations about Onotify :
-     * [6]the project homepage ;
-     * [7]the OCamlForge project page
+     * [3]the project homepage ;
+     * [4]the OCamlForge project page
 
-   Yet, the soure code is hosted on [8]GitHub.
+   Yet, the soure code is hosted on [5]GitHub.
 
    As GitHub lets to suppose, Onotify uses Git as Source Content Management system.
 
@@ -76,30 +76,26 @@ Reporting bugs
 Contribution
 ************
    You can contribute to Onotify by submitting patches on the Patch Tracking System on OCamlForge. Or
-   you can use [9]the devel mailing-list.
+   you can use [6]the devel mailing-list.
 
 
 Technical support
 *****************
-   You can ask for technical support on the Tech. Support System on OCamlForge or on [10]the devel
+   You can ask for technical support on the Tech. Support System on OCamlForge or on [7]the devel
    mailing-list.
 
 
 Authors
 *******
-   [11]Ludovic Stordeur
+   Ludovic Stordeur <ludovic@okazoo.eu>
 
 
 References
 **********
    1. mailto:vincent@snarc.org
    2. http://projects.snarc.org/ocaml-inotify
-   3. https://forge.ocamlcore.org/frs/download.php/478/onotify-0.6.1.tar.bz2
+   3. http://onotify.forge.ocamlcore.org/
    4. https://forge.ocamlcore.org/projects/onotify
-   5. http://onotify.forge.ocamlcore.org/api
-   6. http://onotify.forge.ocamlcore.org/
-   7. https://forge.ocamlcore.org/projects/onotify
-   8. http://github.com/lstordeur/onotify
-   9. mailto:onotify-devel@lists.forge.ocamlcore.org
-  10. mailto:onotify-devel@lists.forge.ocamlcore.org
-  11. mailto:ludovic@okazoo.eu
+   5. http://github.com/lstordeur/onotify
+   6. mailto:onotify-devel@lists.forge.ocamlcore.org
+   7. mailto:onotify-devel@lists.forge.ocamlcore.org
