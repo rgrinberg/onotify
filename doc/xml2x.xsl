@@ -23,10 +23,12 @@ GNU Lesser General Public License for more details.
 	      doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
 	      doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"/>
 
+
   <xsl:param name="backend">html</xsl:param>
 
+
   <xsl:template match="/onotify">
-    <html xmlns="http://www.w3.org/1999/xhtml">
+    <html>
 
       <head>
 	<title> <xsl:apply-templates select="pagetitle"/> </title>
@@ -65,6 +67,21 @@ GNU Lesser General Public License for more details.
     </html>
   </xsl:template>
 
+
+  <xsl:template match="/onotify/section//contact">
+    <xsl:choose>
+      <xsl:when test="$backend='html'">
+	<a>
+	  <xsl:attribute name="href">mailto:<xsl:value-of select="@email"/> </xsl:attribute>
+	  <xsl:value-of select="text()"/>
+	</a>
+      </xsl:when>
+      <xsl:when test="$backend='readme'">
+	<xsl:value-of select="text()"/> &lt;<xsl:value-of select="@email"/>&gt;
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template
      match="/onotify/section//* | /onotify/section//@* | /onotify/web-section//* | /onotify/web-section//@*">
     <xsl:copy>
@@ -80,6 +97,7 @@ GNU Lesser General Public License for more details.
   <xsl:template match="/onotify/web-section">
     <xsl:call-template name="section"/>
   </xsl:template>
+
     
   <xsl:template match="/onotify/authors">
     <h2>Authors</h2>
@@ -89,7 +107,15 @@ GNU Lesser General Public License for more details.
   <xsl:template match="/onotify/authors/author">
     <p> 
       <xsl:value-of select="text()"/>
-      <xsl:text> &lt;</xsl:text> <xsl:value-of select="@email"/> <xsl:text>&gt; </xsl:text>
+      &lt;<xsl:choose>
+	<xsl:when test="$backend='html'">
+	  <a>
+	    <xsl:attribute name="href">mailto:<xsl:value-of select="@email"/> </xsl:attribute>
+	    <xsl:value-of select="@email"/>
+	  </a>
+	</xsl:when>
+	<xsl:when test="$backend='readme'"> <xsl:value-of select="@email"/> </xsl:when>
+      </xsl:choose>&gt;
     </p>
   </xsl:template>
 
