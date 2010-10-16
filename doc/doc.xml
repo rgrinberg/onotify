@@ -56,10 +56,10 @@ GNU Lesser General Public License for more details.
 
 
   <web-section name="Current status">
-    <p>Current stable release is <b>0.6.1</b>, released on <b>05/10/2010</b>.</p>
+    <p>Current stable release is <b>0.6.2</b>, released on <b>16/10/2010</b>.</p>
 
     <p>You can download the latest tarball
-      <a href="https://forge.ocamlcore.org/frs/download.php/478/onotify-0.6.1.tar.bz2">here</a>.
+      <a href="https://forge.ocamlcore.org/frs/download.php/498/onotify-0.6.2.tar.bz2">here</a>.
     </p>
     <p>Checksums and older versions can be fetched through the
       <a href="https://forge.ocamlcore.org/projects/onotify">OCamlForge project page</a>.
