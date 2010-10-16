@@ -71,7 +71,7 @@ dist:
 
 
 .PHONY: push-apidoc
-push-api-doc: apidoc
+push-apidoc: apidoc
 	$(P)$(SCP_R) inotify.docdir/* $(OCAMLFORGE_URL)/api/
 
 
