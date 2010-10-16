@@ -54,7 +54,7 @@ GNU Lesser General Public License for more details.
 		   src="http://www.w3.org/Icons/valid-xhtml10"
 		   alt="Valid XHTML 1.0 Strict"/>
 	    </a>
-	    
+
 	    <a href="http://jigsaw.w3.org/css-validator/check/referer">
               <img style="border:0;width:88px;height:31px"
 		   src="http://jigsaw.w3.org/css-validator/images/vcss"
@@ -98,14 +98,14 @@ GNU Lesser General Public License for more details.
     <xsl:call-template name="section"/>
   </xsl:template>
 
-    
+
   <xsl:template match="/onotify/authors">
     <h2>Authors</h2>
     <xsl:apply-templates select="author"/>
   </xsl:template>
-  
+
   <xsl:template match="/onotify/authors/author">
-    <p> 
+    <p>
       <xsl:value-of select="text()"/>
       &lt;<xsl:choose>
 	<xsl:when test="$backend='html'">

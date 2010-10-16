@@ -71,7 +71,7 @@ GNU Lesser General Public License for more details.
   </web-section>
 
 
-  <section name="Requirements"> 
+  <section name="Requirements">
       <p>Runtime&nbsp;:</p>
     <ul>
       <li>OCaml >= 3.10&nbsp;;</li>
