@@ -62,7 +62,7 @@ install: build
 	$(P)$(MKDIR_P) $(LIBDIR)
 	$(P)$(MKDIR_P) $(DOCDIR)/html
 	$(P)$(OCAMLFIND) install $(OCAMLFINDFLAGS) onotify META $(LIBFILES)
-	$(P)$(CP_R) LICENSE $(DOCDIR)/
+	$(P)$(CP_R) LICENSE NEWS README $(DOCDIR)/
 	$(P)$(CP_R) $(BUILDDIR)/src/inotify.docdir/* $(DOCDIR)/html/
 
 .PHONY: dist
