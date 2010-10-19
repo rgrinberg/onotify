@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- <?xml-stylesheet type="text/xsl" href="xml2x.xsl"?> -->
-
 <!--
 Copyright (C) 2010 Ludovic Stordeur <ludovic@okazoo.eu>
 
