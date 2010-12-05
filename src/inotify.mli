@@ -13,22 +13,44 @@
  * GNU Lesser General Public License for more details.
  *)
 
-(** Inotify OCaml binding public interface
+(** Public interface
 
     @author Ludovic Stordeur
     @author Vincent Hanquez (initial project) *)
 
 
-(** {2 SYNOPSIS} *)
 
-(** {[
+(** {2 Inotify overview}
+
+    The {b Inotify} system provides a mechanism for monitoring file system events.
+    Inotify can be used to monitor individual files, or to monitor directories.
+    When a directory is monitored, Inotify will return events for the directory itself,
+    and for files inside the directory.
+
+    {b Inotify} was merged into the 2.6.13 Linux kernel.
+    The required library interfaces were added to glibc in version 2.4.
+
+
+
+    {2 A quick example}
+
+    If you are impatient to test this binding, you can cut and paste the following example
+    in your favorite editor then save it under a file named example.ml.
+    Then, you can compile it with the following command :
+
+    $ ocamlfind ocamlc -package onotify -linkpkg example.ml -o example
+
+    Finally, its execution will monitor all filesystem events which occur directly under
+    the /tmp directory and report them on the standard output.
+
+    {[
     (* Make this example more readable. *)
     open Inotify
 
-    (* Initialize a new Inotify context and get a handle on it. *)
+    (* Initialize a new Inotify instance and get a file descriptor on it. *)
     let fd = init ()
 
-    (* Request for monitoring all events under "/tmp".
+    (* Request for monitoring all event types under "/tmp".
        The returned watch descriptor is unused in this example. *)
     let wd = add_watch fd "/tmp" [ Inotify.R_All ]
 
@@ -44,7 +66,7 @@
     let _ =
         while true
         do
-            (* Read the Inotify context.
+            (* Read the file descriptor attached to the Inotify instance.
                This can be a blocking operation, so you can poll the file descriptor
 	       with a timeout before reading it. *)
 	    let evs = read fd in
@@ -53,17 +75,38 @@
 	    List.iter (fun ev -> printf "%s\n%!" (string_of_ev ev)) evs
         done;
 
-        (* Close the Inotify context.
+        (* Close the file descriptor attached to the Inotify instance.
            In this example, this operation is never reached because of the above infinite loop.
            However, this is always a good practice to close file descriptors... ;) *)
         Unix.close fd
-    ]}
-*)
+    ]} *)
 
 
-(** {2 API Description} *)
 
-(** Event types to monitor *)
+(** {2 The Inotify first step}
+
+    The first function to call if you wish to use Inotify is [init]. *)
+
+val init : unit -> Unix.file_descr
+(** [init] creates a new {b Inotify instance} and returns a file descriptor referring to this instance.
+    At the end, this descriptor must be closed using [Unix.close]. *)
+
+(** You can perfectly creates several Inotify instance which can be attached different watch points.
+    This can be usefull if you wish, at a given time, to monitor just a subset of all your managed watch points. *)
+
+
+
+(** {2 Attaching watch points}
+
+    Once you have an Inotify instance. You can attach it some watch points using [add_watch].
+    This function takes a list of event types you wish to monitor for this watch point. *)
+
+(** [add_watch] returns a {b watch descriptor} associated to this watch point : *)
+
+type wd = int
+
+(** The exhaustive event type list that [add_watch] can receive is given here : *)
+
 type ev_type_req =
     | R_Access		(** Read access to the file *)
     | R_Attrib		(** Metadata modification *)
@@ -86,7 +129,25 @@ type ev_type_req =
     | R_Oneshot		(** Watch the file until the first event *)
     | R_Onlydir		(** Watch the file only if it is a directory *)
 
-(** Event types to receive *)
+
+val add_watch : Unix.file_descr -> string -> ev_type_req list -> wd
+(** [add_watch fd inode events] attaches a new watch point to the instance [fd],
+    monitoring for [events] on [inode].
+    It returns a watch descriptor on this watch point. *)
+
+
+
+(** {2 Monitoring for events on an Inotify instance}
+
+    The monitoring of an Inotify instance is performed by reading the file descriptor attached
+    to this instance, using the function [read].
+    This function is blocking until some events occur on one or several watch points bound to the instance.
+
+    [read] returns a list of events, each of them related to a watch point.
+    Each event contains the list of event types which have occured.
+
+    The exhaustive event type list that an event can contain is given here : *)
+
 type ev_type =
     | Access		(** Read access to the file *)
     | Attrib		(** Metadata modification *)
@@ -107,12 +168,8 @@ type ev_type =
     | Q_overflow	(** Event queue overloaded *)
     | Unmount		(** Filesystem containing the watched file has been unmounted *)
 
+(** The definition of an event related to a watch point is given here : *)
 
-(** A watch descriptor *)
-type wd = int
-
-
-(** Define an event *)
 type ev = { wd     : wd;	   (** The associated watch descriptor *)
 	    mask   : ev_type list; (** List of received events *)
 	    cookie : int32;	   (** Unique identifier used to bind
@@ -121,22 +178,19 @@ type ev = { wd     : wd;	   (** The associated watch descriptor *)
 	    name   : string option (** Optional name associated to the event *) }
 
 
-val string_of_ev_type : ev_type -> string
-(** [string_of_ev_type ev_type] returns the string representation of [ev_type]. *)
+val read : Unix.file_descr -> ev list
+(** [read fd] reads for events associated to the descriptor [fd] and returns a list of events.
+    If there is no pending event when calling this function, [read] blocks until some event occur. *)
 
-val init : unit -> Unix.file_descr
-(** [init] creates a new Inotify context and returns a descriptor on this context.
-    At the end, this descriptor must be closed using [Unix.close]. *)
 
-val add_watch : Unix.file_descr -> string -> ev_type_req list -> wd
-(** [add_watch fd inode events] adds a new watch point, monitoring for [events] on [inode],
-    to the descriptor [fd] and returns a watch descriptor on this watch point. *)
+
+(** {2 Other functions} *)
 
 val rm_watch : Unix.file_descr -> wd -> unit
 (** [rm_watch fd wd] removes [wd] from the set of watch points associated to [fd]. *)
 
-val read : Unix.file_descr -> ev list
-(** [read fd] reads for events associated to the descriptor [fd] and returns a list of events.
-    If there is no pending event when calling this function, [read] blocks and waits for events.
-    It can be useful to precede [read] by [Unix.select] (with a possible timeout) to control more
-    finely the wait process. *)
+val string_of_ev_type : ev_type -> string
+(** [string_of_ev_type ev_type] returns the string representation of [ev_type]. *)
+
+
+
