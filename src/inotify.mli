@@ -30,6 +30,8 @@
     {b Inotify} was merged into the 2.6.13 Linux kernel.
     The required library interfaces were added to glibc in version 2.4.
 
+    {i (Extracted from the inotify(7) manpage)}
+
 
 
     {2 A quick example}
