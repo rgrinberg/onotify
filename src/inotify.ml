@@ -85,13 +85,13 @@ type ev = { wd     : wd;
 	    cookie : int32;
 	    name   : string option }
 
-external init	     : unit -> Unix.file_descr = "stub_inotify_init"
+external init	     : unit -> Unix.file_descr				   = "stub_inotify_init"
 external add_watch   : Unix.file_descr -> string -> ev_type_req list -> wd = "stub_inotify_add_watch"
-external rm_watch    : Unix.file_descr -> wd -> unit = "stub_inotify_rm_watch"
+external rm_watch    : Unix.file_descr -> wd -> unit			   = "stub_inotify_rm_watch"
 
-external convert     : string -> (wd * ev_type list * int32 * int) = "stub_inotify_convert"
-external struct_size : unit -> int = "stub_inotify_struct_size"
-external to_read     : Unix.file_descr -> int = "stub_inotify_ioctl_fionread"
+external convert     : string -> (wd * ev_type list * int32 * int)	   = "stub_inotify_convert"
+external struct_size : unit -> int					   = "stub_inotify_struct_size"
+external to_read     : Unix.file_descr -> int				   = "stub_inotify_ioctl_fionread"
 
 
 let read fd =
