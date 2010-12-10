@@ -1,4 +1,5 @@
 Short terms:
+    Support for inotify_init1 (requires Linux 2.6.27) ??
     Documentation:
         Add a section on "Error handling"
         Reread and reread and polish !!
