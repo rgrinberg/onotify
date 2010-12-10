@@ -81,7 +81,16 @@
            In this example, this operation is never reached because of the above infinite loop.
            However, this is always a good practice to close file descriptors... ;) *)
         Unix.close fd
-    ]} *)
+    ]}
+
+
+
+    {2 Error reporting}
+
+    All the functions raise [Unix.Unix_error] when an error occurs.
+    Thus, you should always enclose calls to these functions with a {i try ... with} construction.
+
+    ({i All the error lists given below are extracted from the inotify_*(2) manpages}) *)
 
 
 
@@ -94,7 +103,12 @@ val init : unit -> Unix.file_descr
     At the end, this descriptor must be closed using [Unix.close]. *)
 
 (** You can perfectly creates several Inotify instance which can be attached different watch points.
-    This can be usefull if you wish, at a given time, to monitor just a subset of all your managed watch points. *)
+    This can be usefull if you wish, at a given time, to monitor just a subset of all your managed watch points.
+
+    Possible errors :
+    - {b EMFILE} The user limit on the total number of inotify instances has been reached.
+    - {b ENFILE} The system limit on the total number of file descriptors has been reached.
+    - {b ENOMEM} Insufficient kernel memory is available. *)
 
 
 
@@ -133,9 +147,18 @@ type ev_type_req =
 
 
 val add_watch : Unix.file_descr -> string -> ev_type_req list -> wd
-(** [add_watch fd inode events] attaches a new watch point to the instance [fd],
-    monitoring for [events] on [inode].
+(** [add_watch fd pathname events] attaches a new watch point to the instance [fd],
+    monitoring for [events] on [pathname].
     It returns a watch descriptor on this watch point. *)
+
+(** Possible errors :
+    - {b EACCES} Read access to the given file is not permitted.
+    - {b EBADF}  The given file descriptor is not valid.
+    - {b EFAULT} {i pathname} points outside of the process's accessible address space.
+    - {b EINVAL} The given event mask contains no valid events; or {i fd} is not an inotify file descriptor.
+    - {b ENOMEM} Insufficient kernel memory was available.
+    - {b ENOSPC} The user limit on the total number of inotify watches was reached or the kernel failed
+    to allocate a needed resource. *)
 
 
 
@@ -190,6 +213,10 @@ val read : Unix.file_descr -> ev list
 
 val rm_watch : Unix.file_descr -> wd -> unit
 (** [rm_watch fd wd] removes [wd] from the set of watch points associated to [fd]. *)
+
+(** Possible errors :
+    - {b EBADF}  {i fd} is not a valid file descriptor.
+    - {b EINVAL} The watch descriptor {i wd} is not valid; or {i fd} is not an inotify file descriptor. *)
 
 val string_of_ev_type : ev_type -> string
 (** [string_of_ev_type ev_type] returns the string representation of [ev_type]. *)
